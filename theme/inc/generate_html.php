@@ -5,19 +5,19 @@ $head .= '<head>' . PHP_EOL;
 $head .= '	<meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0">' . PHP_EOL;
 $head .= '	<title>Document</title>' . PHP_EOL.PHP_EOL;
 $head .= '	<!--CSS-->' . PHP_EOL;
-$head .= '	<link rel="stylesheet" href="'.plugin_dir_url( PLUGIN_FILE_URL ) . 'component/theme/assets/css/bootstrap.min.css" type="text/css" media="all" />' . PHP_EOL;
-$head .= '	<link rel="stylesheet" href="'.plugin_dir_url( PLUGIN_FILE_URL ) . 'component/theme/assets/css/magnific-popup.css" type="text/css" media="all" />' . PHP_EOL;
-$head .= '	<link rel="stylesheet" href="'.plugin_dir_url( PLUGIN_FILE_URL ) . 'component/theme/assets/css/style.css" type="text/css" media="all" />' . PHP_EOL;
+$head .= '	<link rel="stylesheet" href="'.plugin_dir_url( DIR_COMPONENT ) . 'theme/assets/css/bootstrap.min.css" type="text/css" media="all" />' . PHP_EOL;
+$head .= '	<link rel="stylesheet" href="'.plugin_dir_url( DIR_COMPONENT ) . 'theme/assets/css/magnific-popup.css" type="text/css" media="all" />' . PHP_EOL;
+$head .= '	<link rel="stylesheet" href="'.plugin_dir_url( DIR_COMPONENT ) . 'theme/assets/css/style.css" type="text/css" media="all" />' . PHP_EOL;
 $head .= '	<link rel="stylesheet" href="assets/css/style.css" type="text/css" media="all" />' . PHP_EOL;
 if( isset( $input['include_swup'] ) && $input['include_swup'] === 'include_swup' ){
-    //wp_enqueue_style( 'swup-style', plugin_dir_url( PLUGIN_FILE_URL ).'component/theme/assets/css/swup-style.css');
+    //wp_enqueue_style( 'swup-style', plugin_dir_url( DIR_COMPONENT ).'theme/assets/css/swup-style.css');
     if( isset( $input['css_swup'] )){
         $head .= '<style>' . PHP_EOL;
         $head .= $input['css_swup'] . PHP_EOL;
         $head .= '</style>' . PHP_EOL;
     }
 }
-$head .= '	<script type="text/javascript" src="'.plugin_dir_url( PLUGIN_FILE_URL ) . 'component/theme/assets/js/jquery-3.3.1.min.js" ></script>' . PHP_EOL.PHP_EOL;
+$head .= '	<script type="text/javascript" src="'.plugin_dir_url( DIR_COMPONENT ) . 'theme/assets/js/jquery-3.3.1.min.js" ></script>' . PHP_EOL.PHP_EOL;
 $head .= '</head>' . PHP_EOL;
 $head .= '<body>' . PHP_EOL.PHP_EOL;
 
@@ -52,10 +52,10 @@ $footer .= '      </div>' . PHP_EOL;
 $footer .= '  </div>' . PHP_EOL;
 $footer .= '</footer><!-- #colophon -->' . PHP_EOL;
 $footer .= PHP_EOL.PHP_EOL.'<!--JS-->' . PHP_EOL;
-$footer .= '<script type="text/javascript" src="'.plugin_dir_url( PLUGIN_FILE_URL ) . 'component/theme/assets/js/bootstrap.min.js" ></script>' . PHP_EOL;
+$footer .= '<script type="text/javascript" src="'.plugin_dir_url( DIR_COMPONENT ) . 'theme/assets/js/bootstrap.min.js" ></script>' . PHP_EOL;
 $footer .= '<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js" ></script>' . PHP_EOL;
 if( isset( $input['include_scrollreveal'] ) && $input['include_scrollreveal'] === 'include_scrollreveal' ){
-    $footer .= '<script type="text/javascript" src="'.plugin_dir_url( PLUGIN_FILE_URL ) . 'component/theme/assets/js/scrollreveal.min.js" ></script>' . PHP_EOL;
+    $footer .= '<script type="text/javascript" src="'.plugin_dir_url( DIR_COMPONENT ) . 'theme/assets/js/scrollreveal.min.js" ></script>' . PHP_EOL;
     if( isset( $input['item_scrollreveal'] ) && is_array($input['item_scrollreveal'])){
         $footer .= '<script type="text/javascript">' . PHP_EOL;
         foreach($input['item_scrollreveal'] as $x => $value ){
@@ -70,10 +70,10 @@ if( isset( $input['include_scrollreveal'] ) && $input['include_scrollreveal'] ==
         $footer .= '</script>' . PHP_EOL;
     }
 }
-$footer .= '<script type="text/javascript" src="'.plugin_dir_url( PLUGIN_FILE_URL ) . 'component/theme/assets/js/jquery.magnific-popup.min.js" ></script>' . PHP_EOL;
-$footer .= '<script type="text/javascript" src="'.plugin_dir_url( PLUGIN_FILE_URL ) . 'component/theme/assets/js/script.js" ></script>' . PHP_EOL;
+$footer .= '<script type="text/javascript" src="'.plugin_dir_url( DIR_COMPONENT ) . 'theme/assets/js/jquery.magnific-popup.min.js" ></script>' . PHP_EOL;
+$footer .= '<script type="text/javascript" src="'.plugin_dir_url( DIR_COMPONENT ) . 'theme/assets/js/script.js" ></script>' . PHP_EOL;
 if( isset( $input['include_swup'] ) && $input['include_swup'] === 'include_swup' ){
-    $footer .= '<script type="text/javascript" src="'.plugin_dir_url( PLUGIN_FILE_URL ) . 'component/theme/assets/js/swup-all.js" ></script>' . PHP_EOL;
+    $footer .= '<script type="text/javascript" src="'.plugin_dir_url( DIR_COMPONENT ) . 'theme/assets/js/swup-all.js" ></script>' . PHP_EOL;
     if( isset( $input['script_swup'] )){
             $footer .= '<script type="text/javascript">' . PHP_EOL;
             $footer .= $input['script_swup'] . PHP_EOL;
@@ -161,7 +161,7 @@ fclose($file_template_single);
 
 if ( is_array( get_option( 'bweb_component_active' ) ) ) {
     foreach (get_option( 'bweb_component_active' ) as $foldername){
-        $_a = plugin_dir_path( PLUGIN_FILE_URL ) .'component/'. $foldername . '/render.html';
+        $_a = plugin_dir_path( DIR_COMPONENT ) . $foldername . '/render.html';
         if(file_exists($_a)){
             copy($_a,$folder_theme.'/template_'.$foldername.'.html');
         }

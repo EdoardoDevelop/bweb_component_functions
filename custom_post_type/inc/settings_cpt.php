@@ -29,7 +29,7 @@ class BcCustomPostTypeOptions {
         ?>
 
 		<div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: #000; opacity: 0.8; z-index: 99999;" id="pre_bg">
-			<img src="<?php echo plugin_dir_url( PLUGIN_FILE_URL )."component/custom_post_type/assets/loading.gif"?>" style="width: 32px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, 50%);" />
+			<img src="<?php echo plugin_dir_url( DIR_COMPONENT )."custom_post_type/assets/loading.gif"?>" style="width: 32px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, 50%);" />
 		</div>
 
 		<div class="wrap">
@@ -100,7 +100,7 @@ class BcCustomPostTypeOptions {
 		wp_enqueue_style( 'bc_jquery-ui-css', '//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css' );
 		wp_enqueue_script( 'bc_jquery-ui-js', 'https://code.jquery.com/ui/1.13.2/jquery-ui.js' );
 		wp_enqueue_style('fontawesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css', '', '6.2.0', 'all');
-		wp_enqueue_style( 'settings_cpt-css', plugin_dir_url( PLUGIN_FILE_URL ).'component/custom_post_type/assets/style.css');
+		wp_enqueue_style( 'settings_cpt-css', plugin_dir_url( DIR_COMPONENT ).'custom_post_type/assets/style.css');
     }
 
     public function custombox_callback_script(){

@@ -178,11 +178,7 @@ class bc_swupSettings {
 	}
 
 	public function load_swup(){
-        wp_enqueue_script( 'swup-dist-scripts', plugin_dir_url( PLUGIN_FILE_URL ) . 'component/swup/assets/swup-all.js', array( 'jquery' ),'', true );
-        /*wp_enqueue_script( 'swup-SwupGaPlugin-scripts', plugin_dir_url( PLUGIN_FILE_URL ) . 'component/theme/assets/js/SwupGaPlugin.min.js', array( 'jquery' ),'', true );
-        wp_enqueue_script( 'swup-SwupScrollPlugin-scripts', plugin_dir_url( PLUGIN_FILE_URL ) . 'component/theme/assets/js/SwupScrollPlugin.min.js', array( 'jquery' ),'', true );
-        wp_enqueue_script( 'swup-SwupBodyClassPlugin-scripts', plugin_dir_url( PLUGIN_FILE_URL ) . 'component/theme/assets/js/SwupBodyClassPlugin.min.js', array( 'jquery' ),'', true );
-        wp_enqueue_script( 'swup-SwupHeadPlugin-scripts', plugin_dir_url( PLUGIN_FILE_URL ) . 'component/theme/assets/js/SwupHeadPlugin.min.js', array( 'jquery' ),'', true );*/
+        wp_enqueue_script( 'swup-dist-scripts', plugin_dir_url( DIR_COMPONENT ) . 'swup/assets/swup-all.js', array( 'jquery' ),'', true );
 
         if( isset( $this->swup_settings_options['script_swup'] )){
             wp_register_script( 'swup-scripts', '', array("jquery"), '', true );

@@ -230,13 +230,13 @@ class Bccustom_dashboard {
 			wp_enqueue_script( 'jquery-ui-droppable' );
 			add_thickbox();
 			wp_enqueue_media();
-			wp_enqueue_script( 'jquery-ui-touch', plugin_dir_url(PLUGIN_FILE_URL).'component/custom_dashboard/assets/jquery.ui.touch-punch.min.js', array( 'jquery' ), null, true );
-			wp_enqueue_script( 'dashjs', plugin_dir_url(PLUGIN_FILE_URL).'component/custom_dashboard/assets/script.js', array( 'jquery' ), null, true );
-			wp_enqueue_style( 'dashcss', plugin_dir_url( PLUGIN_FILE_URL ).'component/custom_dashboard/assets/style.css');
+			wp_enqueue_script( 'jquery-ui-touch', plugin_dir_url(DIR_COMPONENT).'component/custom_dashboard/assets/jquery.ui.touch-punch.min.js', array( 'jquery' ), null, true );
+			wp_enqueue_script( 'dashjs', plugin_dir_url(DIR_COMPONENT).'component/custom_dashboard/assets/script.js', array( 'jquery' ), null, true );
+			wp_enqueue_style( 'dashcss', plugin_dir_url( DIR_COMPONENT ).'component/custom_dashboard/assets/style.css');
 			
 		}
 		if(($pagenow=='index.php' || $pagenow=='admin.php') && $_GET['page']=='dashboard'){
-			wp_enqueue_style( 'dashcss', plugin_dir_url( PLUGIN_FILE_URL ).'component/custom_dashboard/assets/style.css');
+			wp_enqueue_style( 'dashcss', plugin_dir_url( DIR_COMPONENT ).'component/custom_dashboard/assets/style.css');
 			add_action('admin_head', array($this,'src_dash_bg'));
 
 			

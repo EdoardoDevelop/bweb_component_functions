@@ -87,10 +87,10 @@ class BcCustomFieldOptions {
         wp_enqueue_script('jquery-ui-core');
         wp_enqueue_script( 'jquery-ui-sortable' );
 		add_thickbox();
-		wp_enqueue_script( 'settings_cf-vanillaSelectBox_js', plugin_dir_url( PLUGIN_FILE_URL ).'component/custom_field/assets/vanillaSelectBox.js' );
+		wp_enqueue_script( 'settings_cf-vanillaSelectBox_js', plugin_dir_url( DIR_COMPONENT ).'custom_field/assets/vanillaSelectBox.js' );
 
-		wp_enqueue_style( 'settings_cf-vanillaSelectBox_css', plugin_dir_url( PLUGIN_FILE_URL ).'component/custom_field/assets/vanillaSelectBox.css');
-		wp_enqueue_style( 'settings_cf-css', plugin_dir_url( PLUGIN_FILE_URL ).'component/custom_field/assets/style.css');
+		wp_enqueue_style( 'settings_cf-vanillaSelectBox_css', plugin_dir_url( DIR_COMPONENT ).'custom_field/assets/vanillaSelectBox.css');
+		wp_enqueue_style( 'settings_cf-css', plugin_dir_url( DIR_COMPONENT ).'custom_field/assets/style.css');
     }
     public function custombox_callback_script(){
         require 'settings_cf_callback_script.php';

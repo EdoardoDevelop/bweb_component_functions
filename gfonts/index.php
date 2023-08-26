@@ -177,9 +177,9 @@ class gfonts {
 		return $input;
     }
     public function load_enqueue(){
-        wp_enqueue_script( 'settings_bc_gfont_js', plugin_dir_url( PLUGIN_FILE_URL ).'component/gfonts/assets/script.js', ['jquery', 'jquery-ui-autocomplete'], null, true );
+        wp_enqueue_script( 'settings_bc_gfont_js', plugin_dir_url( DIR_COMPONENT ).'gfonts/assets/script.js', ['jquery', 'jquery-ui-autocomplete'], null, true );
 		wp_localize_script('settings_bc_gfont_js', 'variable', array('key_gfont'=>get_option( 'bc_key_gfont' )));
-        wp_enqueue_style( 'settings_bc_gfont-css', plugin_dir_url( PLUGIN_FILE_URL ).'component/gfonts/assets/style.css');
+        wp_enqueue_style( 'settings_bc_gfont-css', plugin_dir_url( DIR_COMPONENT ).'gfonts/assets/style.css');
     }
     
     public function load_font(){

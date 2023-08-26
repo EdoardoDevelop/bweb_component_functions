@@ -287,8 +287,8 @@ class bc_popup {
     }
 
     public function load_admin_enqueue(){
-        wp_enqueue_script( 'bcadminpopupjs', plugin_dir_url(PLUGIN_FILE_URL).'component/popUp/assets/script.js', array( 'jquery' ), null, true );
-        wp_enqueue_style( 'bcadminpopupcss', plugin_dir_url( PLUGIN_FILE_URL ).'component/popUp/assets/style.css');
+        wp_enqueue_script( 'bcadminpopupjs', plugin_dir_url(DIR_COMPONENT).'popUp/assets/script.js', array( 'jquery' ), null, true );
+        wp_enqueue_style( 'bcadminpopupcss', plugin_dir_url( DIR_COMPONENT ).'popUp/assets/style.css');
     }
 
     public function load_front(){
@@ -296,8 +296,8 @@ class bc_popup {
         add_action('wp_footer', array( $this, 'inject_popup')); 
     }
     public function load_front_enqueue(){
-        //wp_enqueue_script( 'bcpopupjs', plugin_dir_url(PLUGIN_FILE_URL).'component/popUp/assets/script.js', array( 'jquery' ), null, true );
-        wp_enqueue_style( 'bcpopupss', plugin_dir_url( PLUGIN_FILE_URL ).'component/popUp/assets/frontend.css');
+        //wp_enqueue_script( 'bcpopupjs', plugin_dir_url(DIR_COMPONENT).'popUp/assets/script.js', array( 'jquery' ), null, true );
+        wp_enqueue_style( 'bcpopupss', plugin_dir_url( DIR_COMPONENT ).'popUp/assets/frontend.css');
     }
 
     public function inject_popup(){

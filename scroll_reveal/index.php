@@ -146,7 +146,7 @@ class bc_reveal {
 	
 	public function _enqueue_scripts($hook){
 		
-			wp_enqueue_script( 'bc_scroll_reveal-scrollreveal-scripts', plugin_dir_url( PLUGIN_FILE_URL ) .'component/scroll_reveal/assets/scrollreveal.min.js', array( 'jquery' ),'', true );
+			wp_enqueue_script( 'bc_scroll_reveal-scrollreveal-scripts', plugin_dir_url( DIR_COMPONENT ) .'scroll_reveal/assets/scrollreveal.min.js', array( 'jquery' ),'', true );
 		
 	}
 
@@ -207,7 +207,7 @@ class bc_reveal {
 
     function load_scrollreveal(){
         if( isset( $this->bc_scroll_reveal_settings_options['item_scrollreveal'] ) && is_array($this->bc_scroll_reveal_settings_options['item_scrollreveal'])){
-            wp_enqueue_script( 'bcTheme-scrollreveal-scripts', plugin_dir_url( PLUGIN_FILE_URL ) .'component/scroll_reveal/assets/scrollreveal.min.js', array( 'jquery' ),'', true );
+            wp_enqueue_script( 'bcTheme-scrollreveal-scripts', plugin_dir_url( DIR_COMPONENT ) .'scroll_reveal/assets/scrollreveal.min.js', array( 'jquery' ),'', true );
             $item_scrollreveal = $this->bc_scroll_reveal_settings_options['item_scrollreveal'];
             wp_register_script( 'scrollreveal-scripts', '', array("jquery"), '', true );
             wp_enqueue_script( 'scrollreveal-scripts'  );

@@ -11,13 +11,13 @@ function dwwp_load_templates( $original_template ) {
             if( file_exists( get_stylesheet_directory().'/archive-job.php' ) ){
                 return get_stylesheet_directory().'/archive-job.php';
             }else{
-                return plugin_dir_path( PLUGIN_FILE_URL ).'component/theme/template/archive-job.php';
+                return plugin_dir_path( DIR_COMPONENT ).'theme/template/archive-job.php';
             }
         } elseif( is_singular('job') ) {
             if( file_exists( get_stylesheet_directory().'/single-job.php' ) ){
                 return get_stylesheet_directory().'/single-job.php';
             }else{
-                return plugin_dir_path( PLUGIN_FILE_URL ).'component/theme/template/single-job.php';
+                return plugin_dir_path( DIR_COMPONENT ).'theme/template/single-job.php';
             }
 
         } else {
@@ -25,7 +25,7 @@ function dwwp_load_templates( $original_template ) {
         }
 
 
-        return plugin_dir_path( PLUGIN_FILE_URL ) . 'component/theme/template/index.php';
+        return plugin_dir_path( DIR_COMPONENT ) . 'theme/template/index.php';
     else:
         return $original_template;
     endif;

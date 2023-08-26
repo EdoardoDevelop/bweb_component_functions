@@ -27,7 +27,7 @@ class bc_minify {
                     wp_dequeue_script( $wp_scripts->registered[$script]->handle );
                     wp_enqueue_script( 
                         $wp_scripts->registered[$script]->handle.'-minify', 
-                        plugin_dir_url( PLUGIN_FILE_URL ) . 'component/minify/out_js.php?handle='.$wp_scripts->registered[$script]->handle.'&file='.base64_encode($wp_scripts->registered[$script]->src), $wp_scripts->registered[$script]->deps,
+                        plugin_dir_url( DIR_COMPONENT ) . 'minify/out_js.php?handle='.$wp_scripts->registered[$script]->handle.'&file='.base64_encode($wp_scripts->registered[$script]->src), $wp_scripts->registered[$script]->deps,
                         '', !in_array($wp_scripts->registered[$script]->handle, $head_items)
                     );
                     
@@ -50,7 +50,7 @@ class bc_minify {
                     wp_dequeue_style( $wp_styles->registered[$style]->handle );
                     wp_enqueue_style( 
                         $wp_styles->registered[$style]->handle.'-minify', 
-                        plugin_dir_url( PLUGIN_FILE_URL ) . 'component/minify/out_css.php?handle='.$wp_styles->registered[$style]->handle.'&file='.base64_encode($wp_styles->registered[$style]->src), $wp_styles->registered[$style]->deps
+                        plugin_dir_url( DIR_COMPONENT ) . 'minify/out_css.php?handle='.$wp_styles->registered[$style]->handle.'&file='.base64_encode($wp_styles->registered[$style]->src), $wp_styles->registered[$style]->deps
                     );
                 }
             endforeach;
