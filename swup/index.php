@@ -178,7 +178,7 @@ class bc_swupSettings {
 	}
 
 	public function load_swup(){
-        wp_enqueue_script( 'swup-dist-scripts', plugin_dir_url( DIR_COMPONENT ) . 'swup/assets/swup-all.js', array( 'jquery' ),'', true );
+        wp_enqueue_script( 'swup-dist-scripts', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ) . 'swup/assets/swup-all.js', array( 'jquery' ),'', true );
 
         if( isset( $this->swup_settings_options['script_swup'] )){
             wp_register_script( 'swup-scripts', '', array("jquery"), '', true );

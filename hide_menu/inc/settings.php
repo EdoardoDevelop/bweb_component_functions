@@ -170,8 +170,8 @@ class bcroles {
 
 	public function load_enqueue($hook){
 		if($hook == 'bweb-component_page_hide_menu'){
-			wp_enqueue_style( 'bc_hidemenu_settings_css', plugin_dir_url( DIR_COMPONENT ).'hide_menu/assets/style.css');
-			//wp_enqueue_script( 'bc_settings_js', plugin_dir_url( DIR_COMPONENT ).'assets/script/script.js');
+			wp_enqueue_style( 'bc_hidemenu_settings_css', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ).'hide_menu/assets/style.css');
+			//wp_enqueue_script( 'bc_settings_js', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ).'assets/script/script.js');
 		}
     }
 

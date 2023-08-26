@@ -223,7 +223,7 @@ class bc_theme_admin {
             // Colorpicker Styles
             wp_enqueue_style( 'wp-color-picker' );
 
-            wp_enqueue_style( 'settings-css', plugin_dir_url( DIR_COMPONENT ).'light_theme_admin/settings.css');
+            wp_enqueue_style( 'settings-css', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ).'light_theme_admin/settings.css');
         }
         
     }

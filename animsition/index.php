@@ -209,7 +209,7 @@ class BcanimsitionSettings {
 				printf(
 					'<div style="display:inline-block; text-align:center; margin:5px;" class="gif_page_transition" data-transition="%s" data-gif="%s"><br>%s</div>',
 					$key,
-					plugin_dir_url( DIR_COMPONENT ) .'component/animsition/assets/gif_transition/'.$key.'.gif',
+					plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' .  '/bweb_component_functions/' ) .'component/animsition/assets/gif_transition/'.$key.'.gif',
 					$value
 				);
 			endforeach;
@@ -621,8 +621,8 @@ class BcanimsitionSettings {
 	}
 
     public function load_animsition(){
-        wp_enqueue_script( 'pagetransition-dist-scripts', plugin_dir_url( DIR_COMPONENT ) . 'component/animsition/assets/animsition.js', array( 'jquery' ),'', false );
-        wp_enqueue_style( 'pagetransition-style', plugin_dir_url( DIR_COMPONENT ).'component/animsition/assets/animsition.css');
+        wp_enqueue_script( 'pagetransition-dist-scripts', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ) . 'component/animsition/assets/animsition.js', array( 'jquery' ),'', false );
+        wp_enqueue_style( 'pagetransition-style', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ).'component/animsition/assets/animsition.css');
 
     }
 

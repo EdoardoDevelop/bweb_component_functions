@@ -116,20 +116,20 @@ if ( ! function_exists( 'bcTheme_enqueue' ) ) {
         
         $bctheme_settings_option = get_option( 'bctheme_settings_option' );
         /** JS **/
-        wp_enqueue_script( 'bcTheme-bootstrap', plugin_dir_url( DIR_COMPONENT ) . 'theme/assets/js/bootstrap.min.js', array( 'jquery' ),'', true );
+        wp_enqueue_script( 'bcTheme-bootstrap', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ) . 'theme/assets/js/bootstrap.min.js', array( 'jquery' ),'', true );
         wp_enqueue_script( 'bcTheme-bootstrap-select', 'https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js', array( 'jquery' ),'', true  );
         
-        wp_enqueue_script( 'bcTheme-magnificpopup-scripts', plugin_dir_url( DIR_COMPONENT ) . 'theme/assets/js/jquery.magnific-popup.min.js', array( 'jquery' ),'', true );
+        wp_enqueue_script( 'bcTheme-magnificpopup-scripts', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ) . 'theme/assets/js/jquery.magnific-popup.min.js', array( 'jquery' ),'', true );
 
-        wp_enqueue_script( 'bcTheme-script', plugin_dir_url( DIR_COMPONENT ) . 'theme/assets/js/script.js', array( 'jquery' ),'', true );
+        wp_enqueue_script( 'bcTheme-script', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ) . 'theme/assets/js/script.js', array( 'jquery' ),'', true );
         
         wp_enqueue_script( 'bcTheme-front-script', get_template_directory_uri() . '/assets/js/script.js', array( 'jquery' ),'', true );
 
         /** CSS **/
-        wp_enqueue_style( 'bcTheme-bootstrap-css', plugin_dir_url( DIR_COMPONENT ).'theme/assets/css/bootstrap.min.css');
-        wp_enqueue_style( 'bcTheme-magnificpopup-css', plugin_dir_url( DIR_COMPONENT ).'theme/assets/css/magnific-popup.css');
+        wp_enqueue_style( 'bcTheme-bootstrap-css', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ).'theme/assets/css/bootstrap.min.css');
+        wp_enqueue_style( 'bcTheme-magnificpopup-css', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ).'theme/assets/css/magnific-popup.css');
         
-		wp_enqueue_style( 'bcTheme-style', plugin_dir_url( DIR_COMPONENT ).'theme/assets/css/style.css');
+		wp_enqueue_style( 'bcTheme-style', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ).'theme/assets/css/style.css');
 		wp_enqueue_style( 'bcTheme-front-style', get_template_directory_uri().'/assets/css/style.css');
 
 
