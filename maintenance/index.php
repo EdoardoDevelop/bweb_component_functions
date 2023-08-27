@@ -2,7 +2,7 @@
 /**
  * ID: maintenance
  * Name: Sito in manuntenzione
- * Description: 
+ * Description: Imposta e personalizza la pagina per sito in manutenzione 
  * Icon: dashicons-welcome-view-site
  * Version: 1.0
  * 

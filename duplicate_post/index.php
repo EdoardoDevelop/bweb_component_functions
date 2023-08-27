@@ -2,7 +2,7 @@
 /**
  * ID: duplicate_post
  * Name: Duplica post/page
- * Description: 
+ * Description: Duplica pagine o crea template
  * Icon: dashicons-admin-page
  * Version: 1.1
  * 

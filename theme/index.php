@@ -2,7 +2,7 @@
 /**
 * ID: theme    
 * Name: Tema
-* Description:
+* Description: Crea tema principale del sito e template di categorie,archivi ecc. ecc.
 * Icon: dashicons-admin-appearance
  * Version: 1.3
 * 

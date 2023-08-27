@@ -2,7 +2,7 @@
 /**
  * ID: disable_comment
  * Name: Disabilita commenti
- * Description: 
+ * Description: Disabilita i commenti nel sistema
  * Icon: dashicons-welcome-comments
  * Version: 1.0
  * 

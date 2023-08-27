@@ -2,7 +2,7 @@
 /**
  * ID: upload_memory_limit
  * Name: Upload/memory limit
- * Description: 
+ * Description: Imposta il limite di memoria direttamente nel file htaccess
  * Icon: dashicons-upload
  * Version: 1.0
  * 

@@ -2,7 +2,7 @@
 /**
  * ID: light_theme_admin
  * Name: Light theme Admin
- * Description: 
+ * Description: Tema personalizzato per l'area di amministrazione
  * Icon: dashicons-admin-customizer
  * Version: 1.0
  * 

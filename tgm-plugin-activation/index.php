@@ -2,7 +2,7 @@
 /**
  * ID: tgm-plugin-activation
  * Name: Plugin consigliati
- * Description: 
+ * Description: Una lista di plugin consigliati
  * Autoload: true
  * Icon: dashicons-admin-plugins
  * Version: 1.0

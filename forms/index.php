@@ -2,7 +2,7 @@
 /**
  * ID: forms
  * Name: Forms
- * Description: 
+ * Description: Form con invio email
  * Icon: dashicons-forms
  * Version: 1.2
  * 
