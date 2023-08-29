@@ -138,18 +138,42 @@ jQuery(function($) {
 
     function isScrolledIntoView(){
         $("#response_font .list-group-item").each(function (index, element) {
-            var parentPos = $('#response_font').offset();
-            var childPos = $(element).position();
-            if( ($('#response_font').height()-childPos.top+200) >= 0) {
-                
-                var family = $(element).data('qryfont');
+            const rect = element.getBoundingClientRect();
+            var family = $(element).data('qryfont');
+            if (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            ){
                 var css = "@import url('https://fonts.googleapis.com/css2?family="+family+":wght@"+$(element).data('weight').toString().replace(/regular/g, "400").replace(/,/g, ";");+"');";
                 if($(element).data('click')==0){
-                    $('<style/>').append(css).appendTo(document.head);
+                    $('<style/>').addClass($(element).data('font').replaceAll(/ /g,"")).append(css).appendTo(document.head);
+                    $(element).data('click',1);
+                }
+                $(".preview_font",element).css("opacity", "1");
+            }else{
+                $('style.'+$(element).data('font').replaceAll(/ /g,""),document.head).remove();
+                $(element).data('click',0);
+                $(".preview_font",element).css("opacity", "0");
+            }
+
+            /*var parentPos = $('#response_font').offset();
+            var childPos = $(element).position();
+            var family = $(element).data('qryfont');
+            if( ($('#response_font').height()-childPos.top+200) >= 0) {
+                
+                var css = "@import url('https://fonts.googleapis.com/css2?family="+family+":wght@"+$(element).data('weight').toString().replace(/regular/g, "400").replace(/,/g, ";");+"');";
+                if($(element).data('click')==0){
+                    $('<style/>').addClass(family).append(css).appendTo(document.head);
                     $(element).data('click',1);
                 }
                 $(".preview_font",element).css("opacity", "1");
             }
+            */
+
+                //$('style.'+family,document.head).remove();
+            
         });
     }
 
