@@ -49,6 +49,10 @@
             "folder" : "light_theme_admin"
         },
         {
+            "name" : "Magnific Popup",
+            "folder" : "magnific-popup"
+        },
+        {
             "name" : "Date on name file log",
             "folder" : "log_data"
         },
