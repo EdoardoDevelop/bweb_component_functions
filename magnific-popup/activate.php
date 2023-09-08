@@ -45,5 +45,5 @@ $defaultscript .= 'initalilizeMagnificPopup();' . PHP_EOL;
 $sanitary_values['script_magnificpopup'] = $defaultscript;
 
 
-add_option('swup_settings_option', $sanitary_values);
+add_option('magnificpopup_settings_option', $sanitary_values);
 

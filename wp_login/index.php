@@ -15,7 +15,7 @@ class BCwplogin {
         add_action('login_footer', array($this, 'custom_login_footer'));
         add_action( 'login_enqueue_scripts', array($this, 'custom_login_scripts'));
         add_filter( 'login_headerurl', array($this, 'custom_loginlogo_url'));
-        add_filter( 'login_headertitle', array($this, 'custom_login_title'));
+        add_filter( 'login_headertext', array($this, 'custom_login_title'));
         add_action('wp_before_admin_bar_render', array($this, 'remove_wordpress_admin_logo'), 0);
     }
 

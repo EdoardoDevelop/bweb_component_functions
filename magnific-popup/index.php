@@ -37,7 +37,7 @@ class bc_magnificpopupSettings {
         ?>
 
 		<div class="wrap">
-			<h2 class="wp-heading-inline">SWUP</h2>
+			<h2 class="wp-heading-inline">Magnific Popup</h2>
 			<p></p>
 			<?php settings_errors(); ?>
 
@@ -128,16 +128,14 @@ class bc_magnificpopupSettings {
 					{
 						indentUnit: 2,
 						tabSize: 2,
-						mode: 'javascript',
+						mode: 'javascript'
 					}
 				);
-				
 
 				
 				
                 wp.codeEditor.initialize( $('#script_magnificpopup'), editorSettingsJS );
 				
-
 				
 			})
 		</script>
@@ -145,7 +143,7 @@ class bc_magnificpopupSettings {
 	}
 
 	public function load_magnificpopup(){
-        wp_enqueue_script( 'magnificpopup-dist-scripts', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ) . 'magnific-popup/assets/jquery.magnific-popup.min', array( 'jquery' ),'', true );
+        wp_enqueue_script( 'magnificpopup-dist-scripts', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ) . 'magnific-popup/assets/jquery.magnific-popup.min.js', array( 'jquery' ),'', true );
 
         if( isset( $this->magnificpopup_settings_options['script_magnificpopup'] )){
             wp_register_script( 'magnificpopup-scripts', '', array("jquery"), '', true );
