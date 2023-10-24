@@ -1,0 +1,41 @@
+.card-home{
+    margin: 0 auto;
+    max-width: 840px;
+}
+
+@media (min-width: 576px) {
+    .card-home.alignwide {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .card-home.alignwide {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .card-home.alignwide {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .card-home.alignwide {
+        max-width: 1140px;
+    }
+}
+.card-home.alignfull{
+    width: 100%;
+    max-width: 100%;
+}
+.image_card{
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.image_card img{
+    object-fit: cover;
+    object-position: center center;
+}
