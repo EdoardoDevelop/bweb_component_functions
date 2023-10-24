@@ -9,6 +9,7 @@ class BcCptBlock {
         
         add_action( 'init', array($this, 'bc_cpt_gutenberg_block' ));
         add_action( 'enqueue_block_editor_assets', array($this, 'bc_cpt_gutenberg_block_assets' ));
+        add_action( 'enqueue_block_assets', [$this, 'bc_cpt_gutenberg_block_front'] );
     }
 
     public function bc_cpt_gutenberg_block() {
@@ -31,7 +32,7 @@ class BcCptBlock {
         }
         
         //wp_register_script( 'cpt-gutenberg-server-side-render-x', plugin_dir_url( PLUGIN_FILE_URL ).'component/custom_post_type/inc/server-side-render-x.js');
-        wp_register_script( 'cpt-gutenberg-block', plugin_dir_url( PLUGIN_FILE_URL ).'component/custom_post_type/inc/cpt-block.js', array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components','wp-server-side-render' ) );
+        wp_register_script( 'cpt-gutenberg-block', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ).'custom_post_type/inc/cpt-block.js', array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components','wp-server-side-render' ) );
         wp_localize_script( 'cpt-gutenberg-block', 'cpt', $custom_post_types );
         wp_localize_script( 'cpt-gutenberg-block', 'cf', $this->custom_field );
         wp_localize_script( 'cpt-gutenberg-block', 'imagesize', wp_get_registered_image_subsizes() );
@@ -40,6 +41,9 @@ class BcCptBlock {
             'editor_script' => 'cpt-gutenberg-block',
             'render_callback' => array($this,'bc_render_cpt_block'),
             'skip_inner_blocks' => true,
+            "supports"=> array(
+                "align"=> array('wide', 'full' )
+            ),
             'attributes'  => array(
                 'slug_cpt' => array(
                     'type' => 'string',
@@ -103,16 +107,33 @@ class BcCptBlock {
     public function bc_cpt_gutenberg_block_assets(){
         wp_enqueue_style(
             'cpt-block-css',
-            plugin_dir_url( PLUGIN_FILE_URL ).'component/custom_post_type/assets/cpt-block.css',
+            plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ).'custom_post_type/assets/cpt-block.css',
             array( 'wp-edit-blocks' ),
             time()
         );
         wp_enqueue_style(
             'cpt-block-bootstrap-grid-css',
-            plugin_dir_url( PLUGIN_FILE_URL ).'component/custom_post_type/assets/bootstrap-grid.min.css',
+            plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ).'custom_post_type/assets/bootstrap-grid.min.css',
             array( 'wp-edit-blocks' ),
             time()
         );
+        
+    }
+    public function bc_cpt_gutenberg_block_front(){
+        if(! is_admin()){
+            wp_enqueue_style(
+                'cpt-block-bootstrap-grid-css',
+                plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ).'custom_post_type/assets/bootstrap-grid.min.css',
+                array( 'wp-edit-blocks' ),
+                time()
+            );
+            wp_enqueue_style(
+                'cpt-block-front-css',
+                plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ).'custom_post_type/assets/front.css',
+                array( 'wp-edit-blocks' ),
+                time()
+            );
+        }
     }
 
     public function bc_render_cpt_block($atts){
@@ -152,7 +173,16 @@ class BcCptBlock {
             }
             $cpt_loop = new WP_Query( $args );
             if ($cpt_loop -> have_posts()) :
-                $html .= '<div class="row card-home">';
+                $alignclass = '';
+                if(isset($atts[ 'align' ])){
+                    if($atts[ 'align' ] == 'full'){
+                        $alignclass = 'alignfull';
+                    }elseif($atts[ 'align' ] == 'wide'){
+                        $alignclass = 'alignwide';
+                    }
+                }
+                $html .= '<div class="card-home '.$alignclass.'">';
+                $html .= '<div class="row">';
                 while($cpt_loop -> have_posts()) : $cpt_loop -> the_post();
                     $post_id = get_the_ID();
                     $el_card = 'div';
@@ -203,6 +233,7 @@ class BcCptBlock {
                         $html .= '</div></'.$el_card.'>';
                     
                 endwhile; 
+                $html .= '</div>';
                 $html .= '</div>';
                 wp_reset_query();
                 wp_reset_postdata();

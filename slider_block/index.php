@@ -4,7 +4,7 @@
 * Name: Slider Block
 * Description: Slider in Gutenberg
 * Icon: dashicons-slides
- * Version: 1.2
+ * Version: 1.3
 * 
 */
 
@@ -30,7 +30,7 @@ class BSBSlider{
 
 
 	function onInit() {
-        wp_register_script( 'bc-slide', BSB_DIR.'dist/editor.min.js', array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components' ),'',true );
+        wp_register_script( 'bc-slide', BSB_DIR.'dist/editor.js', array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components' ),'',true );
 		register_block_type('bc/slide', array(
 			'api_version'     => 2,
 			'editor_script' => array('bc-slide')
@@ -41,8 +41,8 @@ class BSBSlider{
         if(! is_admin()){
             
             wp_enqueue_style(
-                'bcs-bootstrap-carousel-css',
-                BSB_ASSETS_DIR . 'carousel.css',
+                'bcs-swiper-css',
+                BSB_ASSETS_DIR . 'swiper-bundle.min.css',
                 array( 'wp-edit-blocks' ),
                 time()
             );
@@ -54,8 +54,8 @@ class BSBSlider{
             );
             
             wp_enqueue_script(
-                'bcs-bootstrap-carousel-js',
-                BSB_ASSETS_DIR . 'carousel.js',
+                'bcs-swiper-js',
+                BSB_ASSETS_DIR . 'swiper-bundle.min.js',
                 array( 'jquery' ),
                 time()
             );
@@ -65,19 +65,19 @@ class BSBSlider{
 	public function bc_slide_gutenberg_block_assets(){
         wp_enqueue_style(
             'bcs-bootstrap-carousel-css',
-            BSB_ASSETS_DIR . 'carousel.css',
+            BSB_ASSETS_DIR . 'swiper-bundle.min.css',
             array( 'wp-edit-blocks' ),
             time()
         );
         wp_enqueue_style(
             'bcs-block-slide-css',
-            BSB_ASSETS_DIR . 'front.css',
+            BSB_ASSETS_DIR . 'backend.css',
             array( 'wp-edit-blocks' ),
             time()
         );
         wp_enqueue_script(
             'bcs-bootstrap-carousel-js',
-            BSB_ASSETS_DIR . 'carousel.js',
+            BSB_ASSETS_DIR . 'swiper-bundle.min.js',
             array( 'jquery' ),
             time(),
             true

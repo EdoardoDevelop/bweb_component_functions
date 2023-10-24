@@ -2,25 +2,24 @@
 /**
 * ID: theme    
 * Name: Tema
-* Description: Crea tema principale del sito e template di categorie,archivi ecc. ecc.
+* Description: Crea tema principale del sito, template di categorie,archivi ecc. ecc.
 * Icon: dashicons-admin-appearance
- * Version: 1.3
+ * Version: 1.6
 * 
 */
 
 // ABS PATH
 if ( !defined( 'ABSPATH' ) ) { exit; }
 define( 'PLUGIN_THEME_DIR', plugin_dir_path( __FILE__ ) );
-if(isset(get_option( 'bctheme_settings_option' )['nome'])){
-$bctheme_settings_name = get_option( 'bctheme_settings_option' )['nome'];
-if(wp_get_theme()->Name === $bctheme_settings_name):
-    if ( !is_admin() ):
-        require plugin_dir_path( __FILE__ ) ."inc/bootstrap_navwalker.php";
-    endif;
-    require plugin_dir_path( __FILE__ ) ."inc/theme-setup.php";
-    //require plugin_dir_path( __FILE__ ) ."inc/template_loader/setup-loader.php";
-    require plugin_dir_path( __FILE__ ) ."inc/template-tags.php";
-    //require plugin_dir_path( __FILE__ ) ."inc/template_include/setup.php";
+if ( !is_admin() ):
+    require plugin_dir_path( __FILE__ ) ."inc/bootstrap_navwalker.php";
 endif;
+require plugin_dir_path( __FILE__ ) ."inc/template-tags.php";
+if ( is_admin() ){
+    require plugin_dir_path( __FILE__ ) ."inc/settings.php";
+    
+    require plugin_dir_path( __FILE__ ) ."inc/page_admin_settings/create.php";
+    
+    require plugin_dir_path( __FILE__ ) ."inc/page_admin_settings/dev.php";
+    
 }
-require plugin_dir_path( __FILE__ ) ."inc/settings.php";

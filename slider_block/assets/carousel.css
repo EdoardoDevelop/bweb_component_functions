@@ -7,35 +7,37 @@
 /*! Carousel Only */
 
 .carousel {
-    position: relative;
+    position: relative !important ;
   }
   
   .carousel-inner {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
+    position: relative !important ;
+    width: 100% !important ;
+    overflow: hidden !important ;
   }
   
   .carousel-item {
-    position: relative;
-    display: none;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    width: 100%;
-    transition: -webkit-transform 0.6s ease;
-    transition: transform 0.6s ease;
-    transition: transform 0.6s ease, -webkit-transform 0.6s ease;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-perspective: 1000px;
-    perspective: 1000px;
+    position: relative !important ;
+    display: none !important ;
+    -webkit-box-align: center !important ;
+    -ms-flex-align: center !important ;
+    align-items: center !important ;
+    width: 100% !important ;
+    transition: -webkit-transform 0.6s ease !important ;
+    transition: transform 0.6s ease !important ;
+    transition: transform 0.6s ease, -webkit-transform 0.6s ease !important ;
+    -webkit-backface-visibility: hidden !important ;
+    backface-visibility: hidden !important ;
+    -webkit-perspective: 1000px !important ;
+    perspective: 1000px !important ;
+    float: none  !important ;
+    margin-right: 0  !important ;
   }
   
   .carousel-item.active,
   .carousel-item-next,
   .carousel-item-prev {
-    display: block;
+    display: block !important ;
   }
   
   .carousel-item-next,
@@ -60,29 +62,29 @@
   
   .carousel-item-next,
   .active.carousel-item-right {
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
+    -webkit-transform: translateX(100%) !important ;
+    transform: translateX(100%) !important ;
   }
   
   @supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {
     .carousel-item-next,
     .active.carousel-item-right {
-      -webkit-transform: translate3d(100%, 0, 0);
-      transform: translate3d(100%, 0, 0);
+      -webkit-transform: translate3d(100%, 0, 0) !important ;
+      transform: translate3d(100%, 0, 0) !important ;
     }
   }
   
   .carousel-item-prev,
   .active.carousel-item-left {
-    -webkit-transform: translateX(-100%);
-    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%) !important ;
+    transform: translateX(-100%) !important ;
   }
   
   @supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {
     .carousel-item-prev,
     .active.carousel-item-left {
-      -webkit-transform: translate3d(-100%, 0, 0);
-      transform: translate3d(-100%, 0, 0);
+      -webkit-transform: translate3d(-100%, 0, 0) !important ;
+      transform: translate3d(-100%, 0, 0) !important ;
     }
   }
   
@@ -222,8 +224,8 @@
   }
   
   .img-fluid {
-    max-width: 100%;
-    height: auto;
+    max-width: 100% !important ;
+    height: auto !important ;
   }
   
   .sr-only {
@@ -238,12 +240,12 @@
   }
   
   .sr-only-focusable:active, .sr-only-focusable:focus {
-    position: static;
-    width: auto;
-    height: auto;
-    margin: 0;
-    overflow: visible;
-    clip: auto;
+    position: static !important ;
+    width: auto !important ;
+    height: auto !important ;
+    margin: 0 !important ;
+    overflow: visible !important ;
+    clip: auto !important ;
   }
   
   @media (min-width: 768px) {

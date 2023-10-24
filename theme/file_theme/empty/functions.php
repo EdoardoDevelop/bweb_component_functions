@@ -1,14 +1,11 @@
 <?php
-/*  Theme setup
-/* ------------------------------------ */
 
 
-if ( ! function_exists( 'bcTheme_setup' ) ) {
-    function bcTheme_setup() {
-
+if ( ! function_exists( '!######!_theme_setup' ) ) :
+    function !######!_theme_setup(){
         // Custom menu areas
 		register_nav_menus( array(
-            'header' => esc_html__( 'Header', 'bcTheme' )
+            'header' => esc_html__( 'Header', '!######!' )
         ) );
 
         add_theme_support( 'align-wide' );
@@ -24,11 +21,11 @@ if ( ! function_exists( 'bcTheme_setup' ) ) {
         add_post_type_support( 'page', 'excerpt' );
         add_theme_support( 'woocommerce' );
         
-        function bcTheme_enable_more_buttons($buttons) {
+        function !######!_enable_more_buttons($buttons) {
             $buttons[] = 'hr';
             return $buttons;
         }
-        add_filter("mce_buttons", "bcTheme_enable_more_buttons");
+        add_filter("mce_buttons", "!######!_enable_more_buttons");
       
         // Thumbnail sizes
         add_image_size( 'image_thumb', 350, 350, true ); //(cropped)
@@ -49,50 +46,50 @@ if ( ! function_exists( 'bcTheme_setup' ) ) {
 
         /*  Register sidebars
         /* ------------------------------------ */
-        if ( ! function_exists( 'bcTheme_sidebars' ) ) {
+        if ( ! function_exists( '!######!_sidebars' ) ) {
 
-            function bcTheme_sidebars()	{
+            function !######!_sidebars()	{
                 
                 register_sidebar(array( 
-                    'name' => esc_html__( 'Primary', 'bcTheme' ),
+                    'name' => esc_html__( 'Primary', '!######!' ),
                     'id' => 'sidebar',
-                    'description' => esc_html__( 'Normal full width sidebar.', 'bcTheme' ), 
+                    'description' => esc_html__( 'Normal full width sidebar.', '!######!' ), 
                     'before_widget' => '<section id="%1$s" class="widget %2$s">',
                     'after_widget' => '</section>',
                     'before_title' => '<h4 class="widget-title">',
                     'after_title' => '</h4>'
                 ));
                 register_sidebar(array( 
-                    'name' => esc_html__( 'shop-sidebar', 'bcTheme' ),
+                    'name' => esc_html__( 'shop-sidebar', '!######!' ),
                     'id' => 'shop-sidebar',
-                    'description' => esc_html__( 'shop-sidebar.', 'bcTheme' ), 
+                    'description' => esc_html__( 'shop-sidebar.', '!######!' ), 
                     'before_widget' => '<section id="%1$s" class="widget %2$s">',
                     'after_widget' => '</section>',
                     'before_title' => '<h4 class="widget-title">',
                     'after_title' => '</h4>'
                 ));
                 register_sidebar(array( 
-                    'name' => esc_html__( 'Footer 1', 'bcTheme' ),
+                    'name' => esc_html__( 'Footer 1', '!######!' ),
                     'id' => 'footer1',
-                    'description' => esc_html__( 'Footer 1.', 'bcTheme' ), 
+                    'description' => esc_html__( 'Footer 1.', '!######!' ), 
                     'before_widget' => '<div id="%1$s" class="%2$s">',
                     'after_widget' => '</div>',
                     'before_title' => '<h6>',
                     'after_title' => '</h6>'
                 ));
                 register_sidebar(array( 
-                    'name' => esc_html__( 'Footer 2', 'bcTheme' ),
+                    'name' => esc_html__( 'Footer 2', '!######!' ),
                     'id' => 'footer2',
-                    'description' => esc_html__( 'Footer 2.', 'bcTheme' ), 
+                    'description' => esc_html__( 'Footer 2.', '!######!' ), 
                     'before_widget' => '<div id="%1$s" class="%2$s">',
                     'after_widget' => '</div>',
                     'before_title' => '<h6>',
                     'after_title' => '</h6>'
                 ));
                 register_sidebar(array( 
-                    'name' => esc_html__( 'Footer 3', 'bcTheme' ),
+                    'name' => esc_html__( 'Footer 3', '!######!' ),
                     'id' => 'footer3',
-                    'description' => esc_html__( 'Footer 3.', 'bcTheme' ), 
+                    'description' => esc_html__( 'Footer 3.', '!######!' ), 
                     'before_widget' => '<div id="%1$s" class="%2$s">',
                     'after_widget' => '</div>',
                     'before_title' => '<h6>',
@@ -102,35 +99,28 @@ if ( ! function_exists( 'bcTheme_setup' ) ) {
             }
 
         }
-        add_action( 'widgets_init', 'bcTheme_sidebars' );
+        add_action( 'widgets_init', '!######!_sidebars' );
     }
+    add_action( 'after_setup_theme', '!######!_theme_setup' );
+endif;
 
-}
+if ( ! function_exists( '!######!_enqueue' ) ) :
+    add_action( 'wp_enqueue_scripts', '!######!_enqueue' );
+    function !######!_enqueue() {
 
-add_action( 'after_setup_theme', 'bcTheme_setup' );
-
-
-if ( ! function_exists( 'bcTheme_enqueue' ) ) {
-
-	function bcTheme_enqueue() {
-        
-        $bctheme_settings_option = get_option( 'bctheme_settings_option' );
         /** JS **/
-        wp_enqueue_script( 'bcTheme-bootstrap', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ) . 'theme/assets/js/bootstrap.min.js', array( 'jquery' ),'', true );
-        wp_enqueue_script( 'bcTheme-bootstrap-select', 'https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js', array( 'jquery' ),'', true  );
-        
-
-        wp_enqueue_script( 'bcTheme-script', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ) . 'theme/assets/js/script.js', array( 'jquery' ),'', true );
-        
-        wp_enqueue_script( 'bcTheme-front-script', get_template_directory_uri() . '/assets/js/script.js', array( 'jquery' ),'', true );
+        wp_enqueue_script( '!######!-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.min.js', array( 'jquery' ),'', true );
+        wp_enqueue_script( '!######!-bootstrap-select', 'https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js', array( 'jquery' ),'', true  );
+                
+        wp_enqueue_script( '!######!-front-script', get_template_directory_uri() . '/assets/js/script.js', array( 'jquery' ),'', true );
 
         /** CSS **/
-        wp_enqueue_style( 'bcTheme-bootstrap-css', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ).'theme/assets/css/bootstrap.min.css');
+		wp_enqueue_style( '!######!-style-normalize', get_template_directory_uri().'/assets/css/normalize.css');
+        wp_enqueue_style( '!######!-bootstrap-css', get_template_directory_uri().'/assets/css/bootstrap.min.css');
         
-		wp_enqueue_style( 'bcTheme-style', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ).'theme/assets/css/style.css');
-		wp_enqueue_style( 'bcTheme-front-style', get_template_directory_uri().'/assets/css/style.css');
-
-
-    }
-}
-add_action( 'wp_enqueue_scripts', 'bcTheme_enqueue' );
+		wp_enqueue_style( '!######!-front-style', get_template_directory_uri().'/assets/css/style.css');
+        
+        //wp_enqueue_script( '!######!-front-script', get_template_directory_uri() . '/namefile.js', array( 'jquery' ),'', true );
+		//wp_enqueue_style( '!######!-style', get_template_directory_uri().'/namefile.css');
+   }
+endif;

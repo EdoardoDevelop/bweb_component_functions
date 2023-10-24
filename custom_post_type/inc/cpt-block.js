@@ -24,7 +24,9 @@
 		title: 'BC Card',
 		icon: 'columns',
 		category: 'bweb-component',
-
+        "supports": {
+            "align": [ 'wide', 'full' ]
+          },
 		attributes: {
 			'slug_cpt': {
 				type: 'string',

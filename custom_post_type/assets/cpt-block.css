@@ -21,9 +21,7 @@
 .input_number input{
     width: 50px !important;
 }
-.wp-block-bc-cpt-block{
-    max-width: 100% !important;
-}
+
 a.title{
     display: block;
 }

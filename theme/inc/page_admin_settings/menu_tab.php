@@ -1,0 +1,5 @@
+<div class="bc-theme-bar" style="display: block;background-color: #fff; border-left: 1px solid #ccc; border-right: 1px solid #ccc; border-top: 1px solid #ccc">
+    <a href="?page=theme" class="bc-theme-bar-item" style="float: left; color: #444;padding: 10px 30px;font-size: 15px;text-decoration: none; box-shadow: none;<?php if(isset($_GET['page']) && $_GET['page'] == 'theme') echo 'background-color: #eee;';?>">Template</a>
+    <a href="?page=theme-crea" class="bc-theme-bar-item" style="float: left; color: #444;padding: 10px 30px;font-size: 15px;text-decoration: none; box-shadow: none;<?php if(isset($_GET['page']) && $_GET['page'] == 'theme-crea') echo 'background-color: #eee;';?> ">Crea</a>
+    <a href="?page=theme-dev" class="bc-theme-bar-item" style="float: left; color: #444;padding: 10px 30px;font-size: 15px;text-decoration: none;box-shadow: none;<?php if(isset($_GET['page']) && $_GET['page'] == 'theme-dev') echo 'background-color: #eee;';?>">Dev</a>
+</div>

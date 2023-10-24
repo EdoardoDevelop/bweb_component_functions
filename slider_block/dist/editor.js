@@ -3,21 +3,26 @@
   var el = element.createElement,
   registerBlockType = blocks.registerBlockType,
   InspectorControls = wp.blockEditor.InspectorControls,
+  InspectorAdvancedControls = wp.blockEditor.InspectorAdvancedControls,
   Fragment = element.Fragment,
   useBlockProps = wp.blockEditor.useBlockProps,
   AlignmentMatrixControl = components.__experimentalAlignmentMatrixControl,
   FocalPointPicker = components.FocalPointPicker,
   MediaUpload =  wp.blockEditor.MediaUpload,
   MediaUploadCheck =  wp.blockEditor.MediaUploadCheck,
-  ColorPalette = components.ColorPalette 
+  ColorPalette = components.ColorPalette,
   ToolbarButton = components.ToolbarButton,
   Modal = components.Modal,
   useState = element.useState,
+  useEffect = element.useEffect,
+  useRef = element.useRef,
   BlockControls = wp.blockEditor.BlockControls,
   TabPanel = components.TabPanel,
   Toolbar = components.Toolbar,
   ToolbarGroup  = components.ToolbarGroup,
   ToolbarDropdownMenu = components.ToolbarDropdownMenu,
+  TextControl  = components.TextControl,
+  TextareaControl = components.TextareaControl,
   PanelBody = components.PanelBody,
   SelectControl = components.SelectControl,
   CheckboxControl = components.CheckboxControl,
@@ -25,6 +30,8 @@
   UnitControl = components.__experimentalUnitControl,
   RadioControl = components.RadioControl,
   InnerBlocks = wp.blockEditor.InnerBlocks;
+
+  
 
   function MyMediaUploader({ mediaIDs, onSelect, toolbar = false }) {
     return el(MediaUploadCheck, null, el(MediaUpload, {
@@ -44,6 +51,76 @@
     }));
   }
 
+  function animation(mode){
+    var effect = mode;
+    var creativeEffect = {};
+    var directionvertical = true;
+
+    switch(mode) {
+      case 'fade':
+        directionvertical = false;
+        break;
+      case 'creative1':
+        effect = 'creative';
+        creativeEffect = {
+          prev: {
+            shadow: true,
+            translate: [0, 0, -400],
+          },
+          next: {
+            translate: ["100%", 0, 0],
+          }
+        };
+        directionvertical = false;
+        break;
+      case 'creative2':
+        effect = 'creative';
+        creativeEffect = {
+          prev: {
+            opacity: 0,
+            translate: [0, 0, -100],
+          },
+          next: {
+            opacity: 0,
+          }
+        };
+        directionvertical = false;
+        break;
+      case 'creative3':
+        effect = 'creative';
+        creativeEffect = {
+          prev: {
+            opacity: 0,
+            translate: [0, 0, 100],
+          },
+          next: {
+            opacity: 0,
+          }
+        };
+        directionvertical = false;
+        break;
+      case 'creative4':
+        effect = 'creative';
+        creativeEffect = {
+          prev: {
+            shadow: true,
+            translate: ["-20%", 0, -1],
+          },
+          next: {
+            translate: ["100%", 0, 0],
+          }
+        };
+        directionvertical = false;
+        break;
+      
+    }
+    return{
+      effect : effect,
+      creativeEffect: creativeEffect,
+      directionvertical: directionvertical
+    }
+  }
+  
   function alignText(v){
     var alignText = {}; 
     switch(v) {
@@ -53,7 +130,7 @@
           'z-index': '2',
           color: 'white',
           top: '20px',
-          left: '30px',
+          left: '50px',
           transform:'translate(0,0)'
         };
         break;
@@ -73,7 +150,7 @@
           'z-index': '2',
           color: 'white',
           top: '20px',
-          right: '30px',
+          right: '50px',
           transform:'translate(0,0)'
         };
         break;
@@ -83,7 +160,7 @@
           'z-index': '2',
           color: 'white',
           top: '50%',
-          left: '30px',
+          left: '50px',
           transform:'translateY(-50%)'
         };
         break;
@@ -103,7 +180,7 @@
           'z-index': '2',
           color: 'white',
           top: '50%',
-          right: '30px',
+          right: '50px',
           transform:'translateY(-50%)'
         };
       break;
@@ -113,7 +190,7 @@
           'z-index': '2',
           color: 'white',
           bottom: '20px',
-          left: '30px',
+          left: '50px',
           transform:'translate(0,0)'
         };
         break;
@@ -133,15 +210,15 @@
           'z-index': '2',
           color: 'white',
           bottom: '20px',
-          right: '30px',
+          right: '50px',
           transform:'translate(0,0)'
         };
         break;
     }
     return alignText;
   }
+
   
-    //console.log(cpt);
 	registerBlockType( 'bc/slide', {
     apiVersion: 2,
     title: 'BC Slide',
@@ -152,6 +229,10 @@
       "align": [ 'wide', 'full' ]
     },
     attributes: {
+      'regeventDOM': {
+				type: 'boolean',
+        default: 0
+			},
       'blockID': {
 				type: 'string',
         default: '0'
@@ -160,6 +241,26 @@
 				type: 'string',
         default: 'slide'
 			},
+      'loop': {
+        type: 'boolean',
+        default: 1
+      },
+      'speed': {
+        type: 'string',
+        default: '600'
+      },
+      'autoplay': {
+        type: 'boolean',
+        default: 0
+      },
+      'delay': {
+        type: 'string',
+        default: 3000
+      },
+      'direction': {
+        type: 'string',
+        default: 'horizontal'
+      },
       'valueH': {
         type: 'string',
         default: '500px'
@@ -188,21 +289,21 @@
         type: 'string',
         default: 'square'
       },
-      'enablescript':{
-        type: 'boolean',
-        default: 0
+      'navpointcolor': {
+        type: 'string',
+        default: '#007aff'
+      },
+      'option': {
+        type: 'string',
+        default: ''
       },
       
       'images': {
         type: 'array',
         source: 'query',
-        selector: '.carousel-item',
+        selector: '.swiper-slide',
         default: [],
   
-        // The following means in each .slider-item element in the saved markup,
-        // the attribute value is read from the data-id/src/data-thumb attribute
-        // of the img element in the .slider-item element. And yes of course, you
-        // can change the selector to 'a', '.some-class' or something else.
         query: {
           focalPointX:{
             type: 'string',
@@ -248,6 +349,11 @@
     edit: function( props ) {
       var blockID = props.attributes.blockID,
       mode = props.attributes.mode,
+      loop = props.attributes.loop,
+      speed = props.attributes.speed,
+      autoplay = props.attributes.autoplay,
+      delay = props.attributes.delay,
+      direction = props.attributes.direction,
       valueH = props.attributes.valueH,
       images = props.attributes.images,
       Overlaycolor = props.attributes.Overlaycolor,
@@ -255,8 +361,11 @@
       Textalignment = props.attributes.Textalignment,
       arrowShow = props.attributes.arrowShow,
       pointerShow = props.attributes.pointerShow,
-      enablescript = props.attributes.enablescript,
-      pointerType = props.attributes.pointerType;
+      pointerType = props.attributes.pointerType,
+      navpointcolor = props.attributes.navpointcolor,
+      option = props.attributes.option;
+
+      const swiperRef = useRef(null);
 
       const [ isOpen, setOpen ] = useState( false );
       const openModal = () => setOpen(true);
@@ -267,8 +376,6 @@
           { value: '%', label: '%', default: 10 },
           { value: 'vh', label: 'vh', default: 0 },
       ];
-
-      run_bc_slide();
       const onSelect = items => {
         var countI = 0;
         props.setAttributes({
@@ -285,22 +392,56 @@
             };
           })
         });
+        props.setAttributes({ regeventDOM : props.attributes.regeventDOM ? 0 : 1 });
       };
+      
       var blockPropsCarousel = useBlockProps({
-        className: 'bc_slide carousel '+mode,
-        //'data-id':'bc_slide',
-        //'data-ride': 'carousel',
-        //'data-interval': 'false',
+        className: 'bc_slide',
         style:{'height': valueH}
       });
-      
       
       if(blockID==0){
         props.setAttributes({ blockID : blockPropsCarousel.id });
       }
-      jQuery('#'+blockPropsCarousel.id).carousel({
-        interval: false
-      })
+
+      useEffect(() => {
+        if (swiperRef.current && swiperRef.current.initialized) {
+          // Destroy Swiper instance when updating.
+          swiperRef.current.destroy(true, true);
+        }
+        swiperRef.current = new Swiper('#'+blockPropsCarousel.id+' .swiper', {
+          direction: animation(mode)['directionvertical'] ? direction : 'horizontal', 
+          speed: speed, 
+          loop: loop, 
+          effect: animation(mode)['effect'],
+          navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }, 
+          pagination: { el: '.swiper-pagination', type: 'bullets', clickable: true },
+          on: {
+            init: function () {
+              console.log(blockPropsCarousel.id);
+              
+              jQuery('#'+blockPropsCarousel.id+' .swiper').css("--swiper-navigation-color",navpointcolor);
+              jQuery('#'+blockPropsCarousel.id+' .swiper').css("--swiper-pagination-color",navpointcolor);
+              jQuery('#'+blockPropsCarousel.id+' .swiper').css("--swiper-pagination-bullet-inactive-color",navpointcolor);
+              jQuery('#'+blockPropsCarousel.id+' .swiper').css("--swiper-pagination-bullet-inactive-opacity","0.4");
+            }
+          },
+          creativeEffect: animation(mode)['creativeEffect'],
+          option
+        });
+
+        setTimeout(() => {
+          swiperRef.current.slideNext(speed);
+          swiperRef.current.on('transitionEnd', function () {
+            setTimeout(() => {
+              swiperRef.current.slidePrev(speed,false);
+              swiperRef.current.off('transitionEnd');
+            }, 300);
+            
+          });
+        }, 300);
+
+      }, [mode, loop, speed, direction, arrowShow, pointerShow, navpointcolor, props.attributes.align, props.attributes.regeventDOM]);
 
       const TEMPLATE = [ 
         [ 'core/heading', { placeholder: 'Enter title...',fontSize: 'large','textColor': 'white' } ],
@@ -393,7 +534,8 @@
                                       return img;
                                     })
                                   });
-                                  jQuery('#'+blockPropsCarousel.id).carousel(item.countI-1);
+                                  
+                                  swiperRef.current.slideTo(item.countI-1);
                                   document.querySelector('.components-modal__screen-overlay').classList.add("drag_modal_background");
                                   document.querySelector('.components-modal__frame').classList.add("drag_modal_background");
                                   document.querySelector('.components-modal__header').classList.add("drag_modal_opacity");
@@ -419,7 +561,7 @@
                 };
                 if(tab.name=='settings'){
                   return el('div',{},
-                    el(PanelBody,{title: 'Modalità'},
+                    el(PanelBody,{title: 'Animazione'},
                       el(SelectControl,{
                         value: mode,
                         options: [
@@ -428,16 +570,96 @@
                                 "label": "Slide"
                             },
                             {
-                                "value": "slide carousel-fade",
+                                "value": "fade",
                                 "label": "Fade"
+                            },
+                            {
+                                "value": "flip",
+                                "label": "Flip"
+                            },
+                            {
+                                "value": "cube",
+                                "label": "Cube"
+                            },
+                            {
+                                "value": "cards",
+                                "label": "Cards"
+                            },
+                            {
+                                "value": "coverflow",
+                                "label": "Coverflow"
+                            },
+                            {
+                                "value": "creative1",
+                                "label": "Slide/Zoom out"
+                            },
+                            {
+                                "value": "creative2",
+                                "label": "Fade/Zoom out"
+                            },
+                            {
+                                "value": "creative3",
+                                "label": "Fade/Zoom in"
+                            },
+                            {
+                                "value": "creative4",
+                                "label": "Slide/Parallax"
                             }
                         ],
                         onChange: ( value ) => {
-                            props.setAttributes( { mode: value } );
+                          props.setAttributes( { mode: value } );
+                        },
+                      }),
+                      animation(mode)['directionvertical'] ? el(RadioControl, {
+                        label: "Direzione",
+                        selected: direction,
+                        options: [{
+                          label: 'Orizzontale',
+                          value: 'horizontal'
+                        },{
+                          label: 'Verticale',
+                          value: 'vertical'
+                        }],
+                        onChange: ( value ) => {
+                          props.setAttributes( { direction: value } );
+                        }
+                      }):null,
+                      el(TextControl,{
+                        label: 'Velocità animazione (ms)',
+                        value: speed,
+                        type: 'number',
+                        onChange: ( value ) => {
+                            props.setAttributes( { speed: value } );
+                          
                         },
                       })
                     ),
-                    
+                    el(PanelBody,{title: 'Autoplay'},
+                      el(CheckboxControl,{
+                        label: 'Abitilia',
+                        checked: autoplay,
+                        onChange: ( value ) => {
+                          props.setAttributes( { autoplay: value } );
+                        },
+                      }),
+                      autoplay ? el(TextControl,{
+                        label: 'Delay (ms)',
+                        value: delay,
+                        type: 'number',
+                        onChange: ( value ) => {
+                          props.setAttributes( { delay: value } );
+                        },
+                      }):null
+                    ),
+                    el(PanelBody,{title: 'Loop'},
+                      el(CheckboxControl,{
+                        label: 'Abitilia',
+                        checked: loop,
+                        onChange: ( value ) => {
+                            props.setAttributes( { loop: value } );
+                        },
+                      })
+                    ),
                     el(PanelBody,{title: 'Testo'},
                       el(CheckboxControl,{
                         label: 'Visibile',
@@ -463,13 +685,6 @@
                         units: unitsH,
                         onChange : ( value ) => {
                           props.setAttributes( { valueH: value } );
-                        },
-                      }),
-                      el(CheckboxControl,{
-                        label: 'Script separato',
-                        checked: enablescript,
-                        onChange: ( value ) => {
-                            props.setAttributes( { enablescript: value } );
                         },
                       })
                     )
@@ -497,7 +712,7 @@
                             props.setAttributes( { pointerShow: value } );
                         },
                       }),
-                      el(RadioControl, {
+                      pointerShow ? el(RadioControl, {
                         label: "Tipologia",
                         selected: pointerType,
                         options: [{
@@ -510,6 +725,16 @@
                         onChange: ( value ) => {
                           props.setAttributes( { pointerType: value } );
                         }
+                      }):null
+                    ),
+                    el(PanelBody,{title: 'Colore'},
+                      el(ColorPalette , {
+                        label: 'Colore',
+                        value: navpointcolor,
+                        enableAlpha: false,
+                        onChange : ( value ) => {
+                          props.setAttributes( { navpointcolor: value } );
+                      },
                       })
                     ),
                     el(PanelBody,{title: 'Sovrapposizione'},
@@ -575,14 +800,41 @@
               }):null
             ),
           ),
-
+          el(InspectorAdvancedControls,{},
+            el(TextControl,{
+              label: 'ID slide',
+              value: blockID,
+              onChange: ( value ) => {
+                props.setAttributes( { blockID: value } );
+                
+              },
+            }),
+            el(TextareaControl,{
+              label: 'Opzioni aggiuntivi',
+              value: option,
+              onChange: ( value ) => {
+                props.setAttributes( { option: value } );
+                
+              },
+            })
+          ),
           el("div", blockPropsCarousel, 
-            images.length >= 1 ? el("div", {
-              className: "carousel-inner"
-            }, 
+            el("div",{
+              className: "swiper",
+              style:{
+                "--swiper-navigation-color": navpointcolor,
+                "--swiper-pagination-color": navpointcolor,
+                "--swiper-pagination-bullet-inactive-color": navpointcolor,
+                "--swiper-pagination-bullet-inactive-color": navpointcolor,
+                "--swiper-pagination-bullet-inactive-opacity": '0.4'
+              }
+            },
+            el("div", {
+              className: "swiper-wrapper"
+              }, 
               images.map(item => el("div", 
                 {
-                  className: item.countI == 1 ? "carousel-item active" : "carousel-item",
+                  className: "swiper-slide",
                   key: 'image-' + item.mediaID
                 }, 
                 el("img", 
@@ -594,11 +846,28 @@
                   }
                 )
               )),
-              el("div",{
-                className: 'carousel-overlay',
+              
+            ),
+            images.length == 0 ? el("div", {
+              style:{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                'z-index': '9999'
+              }
+            }, el(MyMediaUploader, {
+              mediaIDs: images.map(item => item.mediaID),
+              onSelect: onSelect,
+              toolbar: true
+            })
+            ):null,
+
+            images.length >= 1 ? el("div",{
+                className: 'swiper-overlay',
                 style:{'background-color': Overlaycolor}
-              }),
-              isTextShow ? el("div",{
+              }):null,
+              images.length >= 1 ? isTextShow ? el("div",{
                 className: 'caption',
                 style:alignText(Textalignment)
               },el(InnerBlocks,{
@@ -607,50 +876,20 @@
                 allowedBlocks: ['core/paragraph','core/heading','core/button'],
                 orientation: "vertical"
                 
-              })):null,
-              arrowShow ? el("a",{
-                className : "carousel-control-prev",
-                href: "#"+blockPropsCarousel.id,
-                role: "button",
-                'data-slide': 'prev'
-                },el("span",{
-                  className : "carousel-control-prev-icon",
-                })
-              ):null,
-              arrowShow ? el("a",{
-                className : "carousel-control-next",
-                href: "#"+blockPropsCarousel.id,
-                role: "button",
-                'data-slide': 'next'
-                },el("span",{
-                  className : "carousel-control-next-icon",
-                })
-              ):null,
-              pointerShow ?  el("ol",{
-                  className: "carousel-indicators " + pointerType
-                },
-                images.map(item => el("li", 
-                    {
-                      className: item.countI == 1 ? "active" : "",
-                      "data-target": "#"+blockPropsCarousel.id,
-                      "data-slide-to": item.countI - 1
-                    }
-                  )
-                )
-              ):null,
-
-            ) : el("div", {
-                style:{
-                  display: 'flex',
-                  'justify-content': 'center',
-                  height: '100%',
-                  'align-items': 'center'
+              })):null:null,
+              images.length >= 1 ? arrowShow ? el("div",{
+                className : "swiper-button-prev"
                 }
-              }, el(MyMediaUploader, {
-                mediaIDs: images.map(item => item.mediaID),
-                onSelect: onSelect,
-                toolbar: true
-              })
+              ):null:null,
+              images.length >= 1 ? arrowShow ? el("div",{
+                className : "swiper-button-next"
+                }
+              ):null:null,
+              images.length >= 1 ? pointerShow ?  el("div",{
+                  className: "swiper-pagination " + pointerType
+                }
+              ):null:null,
+
             )
           ),
           
@@ -662,21 +901,26 @@
     save: function(props) {
       
       var blockPropscarousel = useBlockProps.save({
-        className: 'bc_slide carousel '+props.attributes.mode,
+        className: 'bc_slide swiper',
         id : props.attributes.blockID,
-        'data-ride': 'carousel',
+        'data-ride': 'swiper',
         style:{
-          'height': props.attributes.valueH
+          'height': props.attributes.valueH,
+          "--swiper-navigation-color": props.attributes.navpointcolor,
+          "--swiper-pagination-color": props.attributes.navpointcolor,
+          "--swiper-pagination-bullet-inactive-color": props.attributes.navpointcolor,
+          "--swiper-pagination-bullet-inactive-color": props.attributes.navpointcolor,
+          "--swiper-pagination-bullet-inactive-opacity": '0.4'
         }
       });
-
-      
+      var animdirection = animation(props.attributes.mode)['directionvertical'] ? props.attributes.direction : 'horizontal';
+      var autoplay = props.attributes.autoplay ? "autoplay: {delay: "+props.attributes.delay+",disableOnInteraction: false,pauseOnMouseEnter: true}," :"";
       return el("div", blockPropscarousel, el("div", {
-        className: "carousel-inner"
+        className: "swiper-wrapper"
       }, 
         props.attributes.images.map(item => el("div", 
           {
-            className:  item.countI == 1 ? "carousel-item active" : "carousel-item",
+            className:  item.countI == 1 ? "swiper-slide active" : "swiper-slide",
             key: 'image-' + item.mediaID
           }, 
           el("img", 
@@ -693,31 +937,22 @@
             }
           )
         )),
+        ),
         el("div",{
-          className: 'carousel-overlay',
+          className: 'swiper-overlay',
           style:{'background-color': props.attributes.Overlaycolor}
         }),
-        props.attributes.isTextShow ? el("div",{className:'container container-carousel-caption'},el("div",{className:'carousel-caption',style:alignText(props.attributes.Textalignment)},el(InnerBlocks.Content))):null,
-        props.attributes.arrowShow ? el("a",{
-          className : "carousel-control-prev",
-          href: "#"+blockPropscarousel.id,
-          role: "button",
-          'data-slide': 'prev'
-          },el("span",{
-            className : "carousel-control-prev-icon",
-          })
+        props.attributes.isTextShow ? el("div",{className:'container container-swiper-caption'},el("div",{className:'swiper-caption',style:alignText(props.attributes.Textalignment)},el(InnerBlocks.Content))):null,
+        props.attributes.arrowShow ? el("div",{
+          className : "swiper-button-prev"
+          }
         ):null,
-        props.attributes.arrowShow ? el("a",{
-          className : "carousel-control-next",
-          href: "#"+blockPropscarousel.id,
-          role: "button",
-          'data-slide': 'next'
-          },el("span",{
-            className : "carousel-control-next-icon",
-          })
+        props.attributes.arrowShow ? el("div",{
+          className : "swiper-button-next"
+          }
         ):null,
-        props.attributes.pointerShow ?  el("ol",{
-            className: "carousel-indicators " + props.attributes.pointerType
+        /*props.attributes.pointerShow ?  el("ol",{
+            className: "swiper-pagination " + props.attributes.pointerType
           },
           props.attributes.images.map(item => el("li", 
               {
@@ -727,9 +962,14 @@
               }
             )
           )
-        ):null
-      ),
-      props.attributes.enablescript ? el("script",{},"run_bc_slide()"): null
+        ):null*/
+        props.attributes.pointerShow ?  el("div",{
+          className: "swiper-pagination " + props.attributes.pointerType
+        }
+      ):null,
+      
+      el("script",{},"new Swiper('#"+blockPropscarousel.id+"', {"+autoplay+" direction: '"+animdirection+"', speed: "+props.attributes.speed+", loop: "+props.attributes.loop+", effect: '"+animation(props.attributes.mode)['effect']+"',navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev', }, pagination: { el: '.swiper-pagination', type: 'bullets', clickable: true },creativeEffect: "+JSON.stringify(animation(props.attributes.mode)['creativeEffect'])+ props.attributes.option +"});")
+
       );
       
     }
