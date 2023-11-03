@@ -105,3 +105,8 @@
   height: 100% !important;
   object-fit: cover !important;
 }
+
+.caption-title a,
+.caption-subtitle a{
+  color: inherit !important;
+}

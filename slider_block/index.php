@@ -35,6 +35,13 @@ class BSBSlider{
 			'api_version'     => 2,
 			'editor_script' => array('bc-slide')
 		));
+        wp_localize_script(
+            'bc-slide',
+            'plugin_dir_url',
+            array(
+                'assets' => BSB_ASSETS_DIR
+            )
+        );
 		
 	}
     public function bc_slide_gutenberg_block_front(){

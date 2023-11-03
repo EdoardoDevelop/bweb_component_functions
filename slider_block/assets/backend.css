@@ -31,10 +31,10 @@
   text-align: inherit;
   background:transparent;
   z-index: 2;
+  position: absolute;
 }
 .container-swiper-caption {
   padding: 0;
-  position: absolute;
   top: 0 ;
   left: 50% ;
   transform: translateX(-50%)  ;
@@ -71,3 +71,8 @@ height: 100% !important;
 object-fit: cover !important;
 }
 
+.richtext-title a,
+.richtext-subtitle a{
+  color: inherit !important;
+  text-decoration: none;
+}
