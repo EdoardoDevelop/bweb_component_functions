@@ -13,15 +13,12 @@
   MediaUploadCheck =  wp.blockEditor.MediaUploadCheck,
   ColorPalette = components.ColorPalette,
   ColorPicker = components.ColorPicker,
-  ToolbarButton = components.ToolbarButton,
   Modal = components.Modal,
   useState = element.useState,
   useEffect = element.useEffect,
   useRef = element.useRef,
-  createRef = element.createRef,
   BlockControls = wp.blockEditor.BlockControls,
   TabPanel = components.TabPanel,
-  Toolbar = components.Toolbar,
   ToolbarGroup  = components.ToolbarGroup,
   ToolbarDropdownMenu = components.ToolbarDropdownMenu,
   TextControl  = components.TextControl,
@@ -48,7 +45,7 @@
         icon: 'insert',
         variant: "secondary",
         onClick: open,
-        className: toolbar ? '' : "button button-large"
+        className: toolbar ? '' : "button button-large",
       }, 'Aggiungi/Modifica'),
       gallery: true,
       multiple: true
@@ -117,7 +114,22 @@
         };
         directionvertical = false;
         break;
-      
+      case 'creative5':
+        effect = 'creative';
+        creativeEffect = {
+          prev: {
+            translate: ["-50%", 0, 0],
+            rotate: [0, 180, 0],
+            scale: 0.5
+          },
+          next: {
+            translate: ["-50%", 0, 0],
+            rotate: [0, -180, 0],
+            scale: 0.5
+          }
+        };
+        directionvertical = false;
+        break;
     }
     return{
       effect : effect,
@@ -369,13 +381,6 @@
             attribute: 'data-textalignment',
             selector: 'img'
           },
-          /*texttitle_elem:{
-            type: 'string',
-            source: 'property',
-            selector: '.caption-title',
-            property: 'nodeName',
-            default: 'p'
-          },*/
           texttitle: {
             type: 'array',
             source: 'html',
@@ -644,6 +649,7 @@
                     istextfocus ? el(FontSizePicker, {
                         value: textsize,
                         fontSizes: fontSizes,
+                        __nextHasNoMarginBottom : true,
                         onChange : ( value ) => {
                           settextsize(value);
                               images[key].texttitle_fontsize = value;
@@ -654,6 +660,7 @@
                       }):el(FontSizePicker, {
                         value: textsize,
                         fontSizes: fontSizes,
+                        __nextHasNoMarginBottom : true,
                         onChange : ( value ) => {
                           settextsize(value);
                               images[key].textsubtitle_fontsize = value;
@@ -668,6 +675,7 @@
                         label: 'Colore',
                         color: textcolor,
                         enableAlpha: true,
+                        __nextHasNoMarginBottom : true,
                         onChange : ( value ) => {
                           
                           settextColor(value);
@@ -680,6 +688,7 @@
                         label: 'Colore',
                         color: textcolor,
                         enableAlpha: true,
+                        __nextHasNoMarginBottom : true,
                         onChange : ( value ) => {
                           settextColor(value);
                               images[key].textsubtitle_color = value;
@@ -746,6 +755,7 @@
                               },
                               el(FocalPointPicker,{
                                 url: item.mediaURL,
+                                __nextHasNoMarginBottom : true,
                                 value: {x:Number(item.focalPointX),y:Number(item.focalPointY)},
                                 
                                 onChange: ( value ) => {
@@ -796,14 +806,14 @@
 
                       })
                       :null,
-                      el(Button, {
+                      isTextShow == 'slide' ? el(Button, {
                         className: "button button-small",
                         onClick: openModalTextAlign,
                         children: "Posizionamento testo",
                         style:{
                           "margin-top":"15px"
                         }
-                      }),
+                      }):null,
                       isOpenTextAlign ?
                       el(Modal, {
                         title: "Posizionamento testo",
@@ -821,6 +831,7 @@
                             el(AlignmentMatrixControl, {
                               label: 'Posizione testo',
                               value: item.Textalignment,
+                              __nextHasNoMarginBottom : true,
                               onChange: ( value ) => {
                                 props.setAttributes({
                                   images: images.map(img => {
@@ -841,7 +852,12 @@
                 };
                 if(tab.name=='settings'){
                   return el('div',{},
-                    el(PanelBody,{title: 'Animazione',initialOpen: false},
+                    el(PanelBody,{icon: el('img',{
+                      src: plugin_dir_url.assets+'gif/effect.gif',
+                      style:{
+                        width: '32px'
+                      }
+                    }) ,title: 'Animazione',initialOpen: false},
                       el('img',{
                         src: plugin_dir_url.assets+'gif/effect.gif',
                         style:{
@@ -850,6 +866,7 @@
                       }),
                       el(SelectControl,{
                         value: mode,
+                        __nextHasNoMarginBottom : true,
                         options: [
                             {
                                 "value": "slide",
@@ -862,6 +879,10 @@
                             {
                                 "value": "flip",
                                 "label": "Flip"
+                            },
+                            {
+                                "value": "creative5",
+                                "label": "Flip alt"
                             },
                             {
                                 "value": "cube",
@@ -899,6 +920,7 @@
                       animation(mode)['directionvertical'] ? el(RadioControl, {
                         label: "Direzione",
                         selected: direction,
+                        __nextHasNoMarginBottom : true,
                         options: [{
                           label: 'Orizzontale',
                           value: 'horizontal'
@@ -913,6 +935,7 @@
                       el(TextControl,{
                         label: 'Velocità animazione (ms)',
                         value: speed,
+                        __nextHasNoMarginBottom : true,
                         type: 'number',
                         onChange: ( value ) => {
                             props.setAttributes( { speed: value } );
@@ -920,7 +943,12 @@
                         },
                       })
                     ),
-                    el(PanelBody,{title: 'Slides Per View',initialOpen: false},
+                    el(PanelBody,{icon: el('img',{
+                      src: plugin_dir_url.assets+'gif/multiple.gif',
+                      style:{
+                        width: '32px'
+                      }
+                    }) ,title: 'Slides Per View',initialOpen: false},
                       el('img',{
                         src: plugin_dir_url.assets+'gif/multiple.gif',
                         style:{
@@ -929,6 +957,7 @@
                       }),
                       el(TextControl,{
                         label: '',
+                        __nextHasNoMarginBottom : true,
                         value: slidesPerView,
                         type: 'number',
                         onChange: ( value ) => {
@@ -937,7 +966,12 @@
                         },
                       })
                     ),
-                    el(PanelBody,{title: 'Autoplay',initialOpen: false},
+                    el(PanelBody,{icon: el('img',{
+                      src: plugin_dir_url.assets+'gif/autoplay.gif',
+                      style:{
+                        width: '32px'
+                      }
+                    }) ,title: 'Autoplay',initialOpen: false},
                       el('img',{
                         src: plugin_dir_url.assets+'gif/autoplay.gif',
                         style:{
@@ -947,6 +981,7 @@
                       el(CheckboxControl,{
                         label: 'Abitilia',
                         checked: autoplay,
+                        __nextHasNoMarginBottom : true,
                         onChange: ( value ) => {
                           props.setAttributes( { autoplay: value } );
                         },
@@ -960,16 +995,27 @@
                         },
                       }):null
                     ),
-                    el(PanelBody,{title: 'Loop',initialOpen: false},
+                    el(PanelBody,{icon: el('img',{
+                      src: plugin_dir_url.assets+'gif/loop.gif',
+                      style:{
+                        width: '32px'
+                      }
+                    }) ,title: 'Loop',initialOpen: false},
                       el(CheckboxControl,{
                         label: 'Abitilia',
+                        __nextHasNoMarginBottom : true,
                         checked: loop,
                         onChange: ( value ) => {
                             props.setAttributes( { loop: value } );
                         },
                       })
                     ),
-                    el(PanelBody,{title: 'Testo',initialOpen: false},
+                    el(PanelBody,{icon: el('img',{
+                      src: plugin_dir_url.assets+'gif/testo.gif',
+                      style:{
+                        width: '32px'
+                      }
+                    }) ,title: 'Testo',initialOpen: false},
                       el('img',{
                         src: plugin_dir_url.assets+'gif/testo.gif',
                         style:{
@@ -979,6 +1025,7 @@
                       el(RadioControl, {
                         label: "Abilita",
                         selected: isTextShow,
+                        __nextHasNoMarginBottom : true,
                         options: [{
                           label: 'No',
                           value: '0'
@@ -995,6 +1042,7 @@
                       }),
                       isTextShow == 'single' ? el(AlignmentMatrixControl, {
                         label: 'Posizione testo',
+                        __nextHasNoMarginBottom : true,
                         value: Textalignment,
                         onChange: ( value ) => {
                           props.setAttributes( { Textalignment: value } );
@@ -1005,6 +1053,7 @@
                     el(PanelBody,{title: 'Altezza',initialOpen: false},
                       el(UnitControl, {
                         label: '',
+                        __nextHasNoMarginBottom : true,
                         className: 'w-UnitControl',
                         value: valueH,
                         units: unitsH,
@@ -1019,7 +1068,12 @@
                 };
                 if(tab.name=='appearance'){
                   return el('div',{},
-                    el(PanelBody,{title: 'Frecce',initialOpen: false},
+                    el(PanelBody,{icon: el('img',{
+                      src: plugin_dir_url.assets+'gif/navigation.gif',
+                      style:{
+                        width: '32px'
+                      }
+                    }) ,title: 'Frecce',initialOpen: false},
                       el('img',{
                         src: plugin_dir_url.assets+'gif/navigation.gif',
                         style:{
@@ -1029,13 +1083,19 @@
                       el(CheckboxControl,{
                         label: 'Abilita',
                         checked: arrowShow,
+                        __nextHasNoMarginBottom : true,
                         onChange: ( value ) => {
                             props.setAttributes( { arrowShow: value } );
                         },
                       }),
 
                     ),
-                    el(PanelBody,{title: 'Indicatori',initialOpen: false},
+                    el(PanelBody,{icon: el('img',{
+                      src: plugin_dir_url.assets+'gif/pagination.gif',
+                      style:{
+                        width: '32px'
+                      }
+                    }) ,title: 'Indicatori',initialOpen: false},
                       el('img',{
                         src: plugin_dir_url.assets+'gif/pagination.gif',
                         style:{
@@ -1045,6 +1105,7 @@
                       el(CheckboxControl,{
                         label: 'Abilita',
                         checked: pointerShow,
+                        __nextHasNoMarginBottom : true,
                         onChange: ( value ) => {
                             props.setAttributes( { pointerShow: value } );
                         },
@@ -1052,6 +1113,7 @@
                       pointerShow ? el(RadioControl, {
                         label: "Tipologia",
                         selected: pointerType,
+                        __nextHasNoMarginBottom : true,
                         options: [{
                           label: 'Square',
                           value: 'square'
@@ -1066,15 +1128,28 @@
                       pointerShow ? el(CheckboxControl,{
                         label: 'Dynamic Bullets',
                         checked: dynamicBullets,
+                        __nextHasNoMarginBottom : true,
                         onChange: ( value ) => {
                             props.setAttributes( { dynamicBullets: value } );
                         },
                       }):null,
                     ),
-                    el(PanelBody,{title: 'Colore',initialOpen: false},
+                    el(PanelBody,{icon: el('img',{
+                      src: plugin_dir_url.assets+'gif/color.gif',
+                      style:{
+                        width: '32px'
+                      }
+                    }) ,title: 'Colore',initialOpen: false},
+                      el('img',{
+                        src: plugin_dir_url.assets+'gif/color.gif',
+                        style:{
+                          width: '100px'
+                        }
+                      }),
                       el(ColorPalette , {
                         label: 'Colore',
                         value: navpointcolor,
+                        __nextHasNoMarginBottom : true,
                         enableAlpha: false,
                         onChange : ( value ) => {
                           props.setAttributes( { navpointcolor: value } );
@@ -1084,6 +1159,7 @@
                     el(PanelBody,{title: 'Sovrapposizione',initialOpen: false},
                       el(ColorPalette , {
                         label: 'Overlay',
+                        __nextHasNoMarginBottom : true,
                         value: Overlaycolor,
                         enableAlpha: true,
                         onChange : ( value ) => {
@@ -1131,6 +1207,7 @@
               isTextShow == 'single' ? el(ToolbarDropdownMenu,{
                 title: 'Posizione testo',
                 icon: AlignmentMatrixControl.Icon,
+                __nextHasNoMarginBottom : true,
                 children: ({
                   onClose
                 }) =>
@@ -1147,6 +1224,7 @@
           el(InspectorAdvancedControls,{},
             el(TextControl,{
               label: 'ID slide',
+              __nextHasNoMarginBottom : true,
               value: blockID,
               onChange: ( value ) => {
                 props.setAttributes( { blockID: value } );
@@ -1156,6 +1234,7 @@
             el(TextareaControl,{
               label: 'Opzioni aggiuntivi',
               value: option,
+              __nextHasNoMarginBottom : true,
               onChange: ( value ) => {
                 props.setAttributes( { option: value } );
                 
@@ -1201,6 +1280,7 @@
                     tagName: 'h2',
                     className: "richtext-title",
                     value : item.texttitle,
+                    __nextHasNoMarginBottom : true,
                     'data-slide': item.mediaURL,
                     'data-fontsize': item.texttitle_fontsize,
                     'data-color': item.texttitle_color,
@@ -1218,6 +1298,7 @@
                     tagName: 'p',
                     className: "richtext-subtitle",
                     value : item.textsubtitle,
+                    __nextHasNoMarginBottom : true,
                     'data-slide': item.mediaURL,
                     'data-fontsize': item.textsubtitle_fontsize,
                     'data-color': item.textsubtitle_color,
