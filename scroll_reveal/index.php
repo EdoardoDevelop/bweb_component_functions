@@ -4,7 +4,7 @@
 * Name: Scroll Reveal
 * Description: Animazione elementi allo scroll della pagina
 * Icon: data:image/svg+xml,%3Csvg width='42px' height='32px' viewBox='2 2 42 32' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%0A%3E%3Crect stroke='none' fill='%23FFCB36' fill-rule='evenodd' x='2' y='2' width='6' height='18' rx='3'%3E%3C/rect%3E%3Crect stroke='none' fill='%23007D97' fill-rule='evenodd' x='26' y='2' width='6' height='32' rx='3'%3E%3C/rect%3E%3Crect stroke='none' fill='%232EAD6D' fill-rule='evenodd' x='14' y='2' width='6' height='8' rx='3'%3E%3C/rect%3E%3Crect stroke='none' fill='%23E31D65' fill-rule='evenodd' x='14' y='16' width='6' height='18' rx='3'%3E%3C/rect%3E%3Crect stroke='none' fill='%23E31D65' fill-rule='evenodd' x='38' y='2' width='6' height='18' rx='3'%3E%3C/rect%3E%3Crect stroke='none' fill='%23FF7C35' fill-rule='evenodd' x='2' y='26' width='6' height='8' rx='3'%3E%3C/rect%3E%3Crect stroke='none' fill='%23553BB8' fill-rule='evenodd' x='38' y='26' width='6' height='8' rx='3'%3E%3C/rect%3E%3C/svg%3E
-* Version: 1.0
+* Version: 1.1
 * 
 */
 
