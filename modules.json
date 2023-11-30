@@ -26,6 +26,11 @@
             "tag": "utility"
         },
         {
+            "name" : "Visualizza post e categorie con filtro",
+            "folder" : "filter_post",
+            "tag": "utility"
+        },
+        {
             "name" : "Pagine Personalizzate",
             "folder" : "custom_post_type",
             "tag": "utility"
