@@ -17,11 +17,14 @@ class bc_reveal {
 		add_action( 'admin_menu', array( $this, 'bc_scroll_reveal_settings_add_plugin_page' ) );
 		add_action( 'admin_init', array( $this, 'bc_scroll_reveal_settings_page_init' ) );
         global $pagenow;
-        if($pagenow=='admin.php' && $_GET['page']=='scroll_reveal'){
-            add_action('admin_enqueue_scripts', array( $this, '_enqueue_scripts' ));
-            add_action('admin_footer-bweb-component_page_scroll_reveal', array( $this, 'admin_js_theme' ));
-        }
+		if(isset($_GET['page'])):
+			if($pagenow=='admin.php' && $_GET['page']=='scroll_reveal'){
+				add_action('admin_enqueue_scripts', array( $this, '_enqueue_scripts' ));
+				add_action('admin_footer-bweb-component_page_scroll_reveal', array( $this, 'admin_js_theme' ));
+			}
+		endif;
         add_action( 'wp_enqueue_scripts', array( $this, 'load_scrollreveal') );
+		add_action( 'enqueue_block_editor_assets', array( $this, '_gutenberg_scripts' ));
 	}
 
 	public function bc_scroll_reveal_settings_add_plugin_page() {
@@ -146,7 +149,8 @@ class bc_reveal {
 	
 	public function _enqueue_scripts($hook){
 		
-			wp_enqueue_script( 'bc_scroll_reveal-scrollreveal-scripts', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ) .'scroll_reveal/assets/scrollreveal.min.js', array( 'jquery' ),'', true );
+		wp_enqueue_script( 'bc_scroll_reveal-scrollreveal-scripts', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ) .'scroll_reveal/assets/scrollreveal.min.js', array( 'jquery' ),'', true );
+		wp_enqueue_style( 'bc_scroll_reveal-scrollreveal-adminstyle', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ) .'scroll_reveal/assets/style.css' );
 		
 	}
 
@@ -224,5 +228,31 @@ class bc_reveal {
             wp_add_inline_script( 'scrollreveal-scripts',$script_scrollreveal);
         }
     }
+
+	public function _gutenberg_scripts(){
+		if(isset($this->bc_scroll_reveal_settings_options['item_scrollreveal'])){
+			wp_enqueue_script( 'bc_scroll_reveal-scrollreveal-scripts', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ) .'scroll_reveal/assets/scrollreveal.min.js', array( 'jquery' ),'', true );
+			wp_enqueue_style( 'bc_scroll_reveal-scrollreveal-adminstyle', plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ) .'scroll_reveal/assets/style.css' );
+	
+			$item_scrollreveal = $this->bc_scroll_reveal_settings_options['item_scrollreveal'];
+			if(isset($item_scrollreveal) && is_array($item_scrollreveal)) {
+				wp_enqueue_script(
+					'bc_reveal-editor', 
+					plugin_dir_url( DIR_COMPONENT .  '/bweb_component_functions/' ) .'scroll_reveal/assets/editor.js', 
+					array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'jquery' ), 
+					time(),
+					true
+				);
+				
+				wp_localize_script(
+					'bc_reveal-editor',
+					'bc_reveal_class',
+					$item_scrollreveal
+				);
+
+			}
+		}
+	}
+	
 }
 new bc_reveal();
