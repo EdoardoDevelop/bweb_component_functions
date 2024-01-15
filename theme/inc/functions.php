@@ -152,3 +152,32 @@ if ( ! function_exists( 'get_c_post_thumbnail' ) ) :
 		endif; // End is_singular().
 	}
 endif;
+
+if ( ! function_exists( 'bc_theme_setup' ) ) :
+    function bc_theme_setup(){
+		add_theme_support( 'custom-spacing' );
+		
+        // Enable featured image
+		add_theme_support( 'post-thumbnails' );
+
+        add_theme_support( "title-tag" );
+        add_post_type_support( 'page', 'excerpt' );
+
+		// Thumbnail sizes
+		add_image_size( 'image_thumb', 350, 350, true ); //(cropped)
+		add_image_size( 'image_single', 1200, 675, true ); 	//(cropped)
+		add_image_size( 'image_big', 1400, 928, true ); 	//(cropped)
+		add_image_size( 'image_HD', 1920, 1080, true ); 	//(cropped)
+
+		add_filter( 'image_size_names_choose', '_custom_sizes_for_gut' );
+
+		function _custom_sizes_for_gut( $sizes ) {
+			return array_merge( $sizes, array(
+				'image_thumb' => __( 'Thumb' ),
+				'image_single' => __( 'Single' ),
+				'image_big' => __( 'Big' ),
+				'image_HD' => __( 'HD' )
+			) );
+		}
+	}
+endif;

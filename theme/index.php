@@ -14,7 +14,7 @@ define( 'PLUGIN_THEME_DIR', plugin_dir_path( __FILE__ ) );
 if ( !is_admin() ):
     require plugin_dir_path( __FILE__ ) ."inc/bootstrap_navwalker.php";
 endif;
-require plugin_dir_path( __FILE__ ) ."inc/template-tags.php";
+require plugin_dir_path( __FILE__ ) ."inc/functions.php";
 if ( is_admin() ){
     require plugin_dir_path( __FILE__ ) ."inc/settings.php";
     

@@ -63,34 +63,36 @@ class gfonts {
                         <?php 
                         $txtclassfont = "";
                         //print_r($this->bc_gfonts_options);
-                        foreach($this->bc_gfonts_options as $name => $v ){
-                            //$v['bc_gfonts_weight']
-                            ?>
-                            <div class="list-group-item <?php echo str_replace(" ","_",$name); ?>" data-font="<?php echo $name; ?>" data-weight="<?php echo $v['bc_gfonts_weight']; ?>">
-                                <div>
-                                <strong><?php echo $name; ?></strong>
-                                    <div class="preview_font" style="font-family: <?php echo $name; ?>"></div>
-                                <br>
+                        if(isset($this->bc_gfonts_options) && is_array($this->bc_gfonts_options)):
+                            foreach($this->bc_gfonts_options as $name => $v ){
+                                //$v['bc_gfonts_weight']
+                                ?>
+                                <div class="list-group-item <?php echo str_replace(" ","_",$name); ?>" data-font="<?php echo $name; ?>" data-weight="<?php echo $v['bc_gfonts_weight']; ?>">
                                     <div>
-                                        <input type="checkbox" checked name="bc_gfonts[<?php echo $name; ?>]" class="chk_font" value="<?php echo $name; ?>">
-                                        <input type="hidden" name="bc_gfonts[<?php echo $name; ?>][bc_gfonts_weight]" value="<?php echo $v['bc_gfonts_weight']; ?>">
-                                        
-                                        <?php foreach(explode(',',$v['bc_gfonts_weight']) as $key) { ?>
-                                            <label class="lbl_weight"><input <?php if (is_array($v['chk_weight']) && in_array($key, $v['chk_weight'])) echo 'checked'; ?> type="checkbox" name="bc_gfonts[<?php echo $name; ?>][chk_weight][]" data-font="<?php echo $name; ?>" data-qryfont="<?php echo str_replace(" ","+",$name); ?>" class="chk_weight" value="<?php echo $key; ?>"><span><?php echo str_replace("regular","400",$key); ?></span></label>
-                                        <?php } ?>
+                                    <strong><?php echo $name; ?></strong>
+                                        <div class="preview_font" style="font-family: <?php echo $name; ?>"></div>
+                                    <br>
+                                        <div>
+                                            <input type="checkbox" checked name="bc_gfonts[<?php echo $name; ?>]" class="chk_font" value="<?php echo $name; ?>">
+                                            <input type="hidden" name="bc_gfonts[<?php echo $name; ?>][bc_gfonts_weight]" value="<?php echo $v['bc_gfonts_weight']; ?>">
+                                            
+                                            <?php foreach(explode(',',$v['bc_gfonts_weight']) as $key) { ?>
+                                                <label class="lbl_weight"><input <?php if (is_array($v['chk_weight']) && in_array($key, $v['chk_weight'])) echo 'checked'; ?> type="checkbox" name="bc_gfonts[<?php echo $name; ?>][chk_weight][]" data-font="<?php echo $name; ?>" data-qryfont="<?php echo str_replace(" ","+",$name); ?>" class="chk_weight" value="<?php echo $key; ?>"><span><?php echo str_replace("regular","400",$key); ?></span></label>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <a href="#" class="remove_font button-secondary delete"><span class="dashicons dashicons-trash" style="vertical-align: text-top;"></span> Rimuovi</a>
                                     </div>
                                 </div>
-                                <div>
-                                    <a href="#" class="remove_font button-secondary delete"><span class="dashicons dashicons-trash" style="vertical-align: text-top;"></span> Rimuovi</a>
-                                </div>
-                            </div>
 
 
-                            <?php
-                            $txtclassfont .= ".font-" . str_replace(" ","-",$name) . "{<br>";
-                            $txtclassfont .= "&nbsp&nbsp&nbsp&nbsp&nbsp&nbspfont-family: '".$name."';<br>";
-                            $txtclassfont .= "}<br>";
-                        }
+                                <?php
+                                $txtclassfont .= ".font-" . str_replace(" ","-",$name) . "{<br>";
+                                $txtclassfont .= "&nbsp&nbsp&nbsp&nbsp&nbsp&nbspfont-family: '".$name."';<br>";
+                                $txtclassfont .= "}<br>";
+                            }
+                        endif;
                         ?>
                         </div>
                         <?php if($txtclassfont != ""): ?>

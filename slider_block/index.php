@@ -20,7 +20,7 @@ define( 'BSB_ASSETS_DIR', plugin_dir_url( __FILE__ ) . 'assets/' );
 
 // Block Directory
 class BSBSlider{
-	function __construct(){
+	public function __construct(){
 		add_action( 'enqueue_block_assets', [$this, 'bc_slide_gutenberg_block_front'] );
 		add_action( 'init', [$this, 'onInit'] );
 		add_action( 'enqueue_block_editor_assets', [$this, 'bc_slide_gutenberg_block_assets' ]);
@@ -29,7 +29,7 @@ class BSBSlider{
 	}
 
 
-	function onInit() {
+	public function onInit() {
         wp_register_script( 'bc-slide', BSB_DIR.'dist/editor.js', array( 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components' ),'',true );
 		register_block_type('bc/slide', array(
 			'api_version'     => 2,
@@ -91,6 +91,7 @@ class BSBSlider{
         );
     }
     public function check_registered_image_size(){
+        add_theme_support('align-wide');
         if ( !has_image_size( 'image_HD' ) ) {
             add_image_size( 'image_HD', 1920, 1080, true );
         }

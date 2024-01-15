@@ -5,9 +5,11 @@ class BcThemeSettingsCreate {
 		add_action( 'admin_menu', array( $this, 'bctheme_settings_add_plugin_page' ) );
 		add_action( 'admin_init', array( $this, 'bctheme_settings_page_init' ) );
         global $pagenow;
-        if($pagenow=='admin.php' && $_GET['page']=='theme-crea'){
-            add_action('admin_footer', array( $this, 'custom_admin_js' ) );
-        }
+        if(isset($_GET['page'])):
+            if($pagenow=='admin.php' && $_GET['page']=='theme-crea'){
+                add_action('admin_footer', array( $this, 'custom_admin_js' ) );
+            }
+        endif;
 	}
 
 	public function bctheme_settings_add_plugin_page() {
@@ -64,6 +66,13 @@ class BcThemeSettingsCreate {
 			'theme', // id
 			'Tema', // title
 			array( $this, 'theme_callback' ), // callback
+			'bctheme-settings-create', // page
+			'bctheme_settings_create_section' // section
+		);
+        add_settings_field(
+			'import', // id
+			'Importa dati di esempio', // title
+			array( $this, 'import_theme_callback' ), // callback
 			'bctheme-settings-create', // page
 			'bctheme_settings_create_section' // section
 		);
@@ -181,7 +190,12 @@ class BcThemeSettingsCreate {
         }
 	}
 
-	
+	public function import_theme_callback() {
+		printf(
+            '<label><input type="checkbox" name="bctheme_settings_option[import]" id="chk_import" value="import_theme" %s></label>',
+            isset( $this->bctheme_settings_options['import'] )  ? 'checked' : ''
+        );
+	}
 
     public function copyfolder ($from, $to, $ext="*") {
         // (A1) SOURCE FOLDER CHECK
@@ -248,9 +262,12 @@ class BcThemeSettingsCreate {
                     if(val == 'childtheme'){
                         $('#nome').attr('readonly', 'readonly');
                         $('#nome').val('<?php echo wp_get_theme(get_option('template'))->Name; ?> - Child');
+                        $('#chk_import').attr('disabled', 'disabled');
+                        $('#chk_import').removeAttr('checked');
                     }else{
                         $('#nome').removeAttr('readonly');
                         $('#nome').val(original_value);
+                        $('#chk_import').removeAttr('disabled');
                     }
                 });
             });

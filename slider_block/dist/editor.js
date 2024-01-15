@@ -252,6 +252,7 @@
     category: 'bweb-component',
     
     "supports": {
+      
       "align": [ 'wide', 'full' ]
     },
     attributes: {
